@@ -1,0 +1,404 @@
+// ============================================================
+// Initialize on DOM Load
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  loadConfigData();
+  setupNavigation();
+  setupLightbox();
+  setupScrollAnimations();
+});
+
+// ============================================================
+// Load Configuration Data
+// ============================================================
+function loadConfigData() {
+  // Apply colors as CSS custom properties
+  applyColors();
+  
+  // Load Google Fonts
+  loadFonts();
+  
+  // Populate page content
+  populateNavigation();
+  populateHero();
+  populateAbout();
+  populateMenu();
+  populateGallery();
+  populateTestimonials();
+  populateLocation();
+  populateCTABanner();
+  populateFooter();
+  
+  // Update page title and meta
+  document.title = `${SHOP.name} | ${SHOP.tagline}`;
+}
+
+// ============================================================
+// Apply Colors from Config
+// ============================================================
+function applyColors() {
+  const root = document.documentElement;
+  root.style.setProperty('--primary', SHOP.colors.primary);
+  root.style.setProperty('--accent', SHOP.colors.accent);
+  root.style.setProperty('--background', SHOP.colors.background);
+  root.style.setProperty('--text', SHOP.colors.text);
+}
+
+// ============================================================
+// Load Google Fonts
+// ============================================================
+function loadFonts() {
+  const root = document.documentElement;
+  root.style.setProperty('--font-heading', `'${SHOP.fonts.heading}', serif`);
+  root.style.setProperty('--font-body', `'${SHOP.fonts.body}', sans-serif`);
+  
+  // Load fonts from Google Fonts
+  const headingFont = SHOP.fonts.heading.replace(/ /g, '+');
+  const bodyFont = SHOP.fonts.body.replace(/ /g, '+');
+  const fontLink = document.getElementById('google-fonts-link');
+  fontLink.href = `https://fonts.googleapis.com/css2?family=${headingFont}:wght@400;700&family=${bodyFont}:wght@400;500;600;700&display=swap`;
+}
+
+// ============================================================
+// Populate Navigation
+// ============================================================
+function populateNavigation() {
+  const logoText = document.getElementById('logo-text');
+  logoText.textContent = SHOP.name;
+}
+
+// ============================================================
+// Populate Hero Section
+// ============================================================
+function populateHero() {
+  const heroImage = document.getElementById('hero-image');
+  const heroHeadline = document.getElementById('hero-headline');
+  const heroSubheadline = document.getElementById('hero-subheadline');
+  const heroCTA = document.getElementById('hero-cta');
+  
+  heroImage.style.backgroundImage = `url('${SHOP.hero.image}')`;
+  heroHeadline.textContent = SHOP.hero.headline;
+  heroSubheadline.textContent = SHOP.hero.subheadline;
+  heroCTA.textContent = SHOP.hero.ctaText;
+  heroCTA.href = SHOP.hero.ctaLink;
+}
+
+// ============================================================
+// Populate About Section
+// ============================================================
+function populateAbout() {
+  const aboutTitle = document.getElementById('about-title');
+  const aboutText = document.getElementById('about-text');
+  const aboutImage = document.getElementById('about-image');
+  
+  aboutTitle.textContent = SHOP.about.title;
+  aboutText.textContent = SHOP.about.text;
+  aboutImage.src = SHOP.about.image;
+  aboutImage.alt = `${SHOP.name} interior`;
+}
+
+// ============================================================
+// Populate Menu Section
+// ============================================================
+function populateMenu() {
+  const menuGrid = document.getElementById('menu-grid');
+  
+  SHOP.menu.forEach(category => {
+    const categoryDiv = document.createElement('div');
+    categoryDiv.className = 'menu-category fade-in';
+    
+    const categoryTitle = document.createElement('h3');
+    categoryTitle.className = 'menu-category-title';
+    categoryTitle.textContent = category.category;
+    categoryDiv.appendChild(categoryTitle);
+    
+    category.items.forEach(item => {
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'menu-item';
+      
+      const itemHeader = document.createElement('div');
+      itemHeader.className = 'menu-item-header';
+      
+      const itemName = document.createElement('span');
+      itemName.className = 'menu-item-name';
+      itemName.textContent = item.name;
+      
+      const itemPrice = document.createElement('span');
+      itemPrice.className = 'menu-item-price';
+      itemPrice.textContent = `$${item.price}`;
+      
+      itemHeader.appendChild(itemName);
+      itemHeader.appendChild(itemPrice);
+      
+      const itemDesc = document.createElement('p');
+      itemDesc.className = 'menu-item-desc';
+      itemDesc.textContent = item.desc;
+      
+      itemDiv.appendChild(itemHeader);
+      itemDiv.appendChild(itemDesc);
+      categoryDiv.appendChild(itemDiv);
+    });
+    
+    menuGrid.appendChild(categoryDiv);
+  });
+}
+
+// ============================================================
+// Populate Gallery Section
+// ============================================================
+function populateGallery() {
+  const galleryGrid = document.getElementById('gallery-grid');
+  
+  SHOP.gallery.forEach((imageUrl, index) => {
+    const galleryItem = document.createElement('div');
+    galleryItem.className = 'gallery-item fade-in';
+    galleryItem.dataset.index = index;
+    
+    const img = document.createElement('img');
+    img.src = imageUrl;
+    img.alt = `${SHOP.name} gallery image ${index + 1}`;
+    img.loading = 'lazy';
+    
+    galleryItem.appendChild(img);
+    galleryGrid.appendChild(galleryItem);
+    
+    // Add click event for lightbox
+    galleryItem.addEventListener('click', () => openLightbox(index));
+  });
+}
+
+// ============================================================
+// Populate Testimonials Section
+// ============================================================
+function populateTestimonials() {
+  const testimonialsGrid = document.getElementById('testimonials-grid');
+  
+  SHOP.testimonials.forEach(testimonial => {
+    const card = document.createElement('div');
+    card.className = 'testimonial-card fade-in';
+    
+    const quote = document.createElement('p');
+    quote.className = 'testimonial-quote';
+    quote.textContent = testimonial.quote;
+    
+    const author = document.createElement('p');
+    author.className = 'testimonial-author';
+    author.textContent = testimonial.author;
+    
+    const role = document.createElement('p');
+    role.className = 'testimonial-role';
+    role.textContent = testimonial.role;
+    
+    card.appendChild(quote);
+    card.appendChild(author);
+    card.appendChild(role);
+    testimonialsGrid.appendChild(card);
+  });
+}
+
+// ============================================================
+// Populate Location Section
+// ============================================================
+function populateLocation() {
+  // Hours table
+  const hoursTable = document.getElementById('hours-table');
+  
+  Object.entries(SHOP.hours).forEach(([day, hours]) => {
+    const row = document.createElement('tr');
+    
+    const dayCell = document.createElement('td');
+    dayCell.textContent = day.charAt(0).toUpperCase() + day.slice(1);
+    
+    const hoursCell = document.createElement('td');
+    hoursCell.textContent = hours;
+    
+    row.appendChild(dayCell);
+    row.appendChild(hoursCell);
+    hoursTable.appendChild(row);
+  });
+  
+  // Contact info
+  const addressLink = document.getElementById('address-link');
+  addressLink.textContent = SHOP.address;
+  addressLink.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SHOP.address)}`;
+  
+  const phoneLink = document.getElementById('phone-link');
+  phoneLink.textContent = SHOP.phone;
+  phoneLink.href = `tel:${SHOP.phone.replace(/\D/g, '')}`;
+  
+  const emailLink = document.getElementById('email-link');
+  emailLink.textContent = SHOP.email;
+  emailLink.href = `mailto:${SHOP.email}`;
+  
+  // Map embed
+  const mapEmbed = document.getElementById('map-embed');
+  mapEmbed.src = SHOP.mapEmbedUrl;
+}
+
+// ============================================================
+// Populate CTA Banner
+// ============================================================
+function populateCTABanner() {
+  const ctaHeadline = document.getElementById('cta-headline');
+  const ctaSubheadline = document.getElementById('cta-subheadline');
+  const ctaButton = document.getElementById('cta-button');
+  
+  ctaHeadline.textContent = SHOP.ctaBanner.headline;
+  ctaSubheadline.textContent = SHOP.ctaBanner.subheadline;
+  ctaButton.textContent = SHOP.ctaBanner.buttonText;
+  ctaButton.href = SHOP.ctaBanner.buttonLink;
+}
+
+// ============================================================
+// Populate Footer
+// ============================================================
+function populateFooter() {
+  const currentYear = document.getElementById('current-year');
+  currentYear.textContent = new Date().getFullYear();
+  
+  const footerShopName = document.getElementById('footer-shop-name');
+  footerShopName.textContent = SHOP.name;
+  
+  const instagramLink = document.getElementById('instagram-link');
+  instagramLink.href = SHOP.social.instagram;
+  
+  const facebookLink = document.getElementById('facebook-link');
+  facebookLink.href = SHOP.social.facebook;
+}
+
+// ============================================================
+// Navigation - Smooth Scroll & Mobile Menu
+// ============================================================
+function setupNavigation() {
+  const navbar = document.getElementById('navbar');
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const navLinks = document.getElementById('nav-links');
+  const navLinkItems = document.querySelectorAll('.nav-link');
+  
+  // Scroll event for navbar shadow
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.15)';
+    } else {
+      navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+    }
+  });
+  
+  // Mobile menu toggle
+  mobileMenuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+  
+  // Close mobile menu when link is clicked
+  navLinkItems.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+    });
+  });
+  
+  // Smooth scroll with offset for fixed navbar
+  navLinkItems.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href');
+      
+      if (targetId === '#hero') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const targetSection = document.querySelector(targetId);
+        if (targetSection) {
+          const navbarHeight = navbar.offsetHeight;
+          const targetPosition = targetSection.offsetTop - navbarHeight;
+          window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+        }
+      }
+    });
+  });
+}
+
+// ============================================================
+// Lightbox Functionality
+// ============================================================
+let currentLightboxIndex = 0;
+
+function setupLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImage = document.getElementById('lightbox-image');
+  const lightboxClose = document.getElementById('lightbox-close');
+  const lightboxPrev = document.getElementById('lightbox-prev');
+  const lightboxNext = document.getElementById('lightbox-next');
+  
+  // Close lightbox
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      closeLightbox();
+    }
+  });
+  
+  // Navigation
+  lightboxPrev.addEventListener('click', () => {
+    currentLightboxIndex = (currentLightboxIndex - 1 + SHOP.gallery.length) % SHOP.gallery.length;
+    updateLightboxImage();
+  });
+  
+  lightboxNext.addEventListener('click', () => {
+    currentLightboxIndex = (currentLightboxIndex + 1) % SHOP.gallery.length;
+    updateLightboxImage();
+  });
+  
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+    
+    if (e.key === 'Escape') {
+      closeLightbox();
+    } else if (e.key === 'ArrowLeft') {
+      lightboxPrev.click();
+    } else if (e.key === 'ArrowRight') {
+      lightboxNext.click();
+    }
+  });
+}
+
+function openLightbox(index) {
+  currentLightboxIndex = index;
+  updateLightboxImage();
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function updateLightboxImage() {
+  const lightboxImage = document.getElementById('lightbox-image');
+  lightboxImage.src = SHOP.gallery[currentLightboxIndex];
+  lightboxImage.alt = `${SHOP.name} gallery image ${currentLightboxIndex + 1}`;
+}
+
+// ============================================================
+// Scroll Animations with Intersection Observer
+// ============================================================
+function setupScrollAnimations() {
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+  
+  // Observe all fade-in elements
+  const fadeElements = document.querySelectorAll('.fade-in');
+  fadeElements.forEach(element => {
+    observer.observe(element);
+  });
+}
