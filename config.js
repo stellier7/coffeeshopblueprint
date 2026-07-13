@@ -7,7 +7,7 @@
 const SHOP = {
   // Basic Info
   name: "CALA Coffee Roasters",
-  tagline: "Specialty Coffee in Comayagua",
+  tagline: "Somos una nueva experiencia en café, te esperamos.",
   logoText: "CALA", // Used if no logo image is provided
   
   // Colors - These will be applied site-wide via CSS custom properties
@@ -27,55 +27,52 @@ const SHOP = {
   // Hero Section
   hero: {
     image: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=1920&q=80",
-    headline: "Handcrafted coffee, made with care",
-    subheadline: "Your neighborhood coffee shop since 2020",
-    ctaText: "View Menu",
+    headline: "Café de especialidad en Comayagua",
+    subheadline: "Una nueva experiencia en café",
+    ctaText: "Ver Menú",
     ctaLink: "#menu"
   },
   
   // About Section
   about: {
-    title: "Our Story",
-    text: "Born from a passion for exceptional coffee and community connection, Roasted Roots Coffee Co. opened its doors in 2020. We source our beans directly from sustainable farms, roast in small batches, and craft each cup with intention. More than a coffee shop, we're a gathering place where neighbors become friends and every visit feels like coming home.",
+    title: "Nuestra Historia",
+    text: "CALA Coffee Roasters es una nueva experiencia en café en el corazón de Comayagua. Nos especializamos en café de especialidad, tostado con pasión y servido con dedicación. Somos más que una cafetería, somos un espacio donde la comunidad se encuentra y cada visita es especial.",
     image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80"
   },
   
   // Menu - Organized by category
   menu: [
     {
-      category: "Espresso Drinks",
+      category: "Bebidas Calientes",
       items: [
-        { name: "Espresso", price: "3.00", desc: "Single origin, pulled to perfection" },
-        { name: "Cappuccino", price: "4.50", desc: "Rich espresso, steamed milk, velvety foam" },
-        { name: "Flat White", price: "4.75", desc: "Microfoam over double espresso" },
-        { name: "Latte", price: "5.00", desc: "Smooth espresso with steamed milk" },
-        { name: "Mocha", price: "5.50", desc: "Espresso, chocolate, steamed milk, whipped cream" }
+        { name: "Espresso", price: "25", desc: "Espresso puro y concentrado" },
+        { name: "Americano", price: "30/35", desc: "Espresso con agua caliente" },
+        { name: "Cappuccino", price: "45/55", desc: "Espresso con leche vaporizada y espuma" },
+        { name: "Latte", price: "45/55", desc: "Espresso suave con leche vaporizada" },
+        { name: "Mocha", price: "50/60", desc: "Espresso, chocolate y leche vaporizada" },
+        { name: "Chocolate Caliente", price: "35/45", desc: "Chocolate rico con leche" },
+        { name: "Té", price: "25/30", desc: "Variedad de tés calientes" }
       ]
     },
     {
-      category: "Brewed Coffee",
+      category: "Bebidas Frías",
       items: [
-        { name: "Drip Coffee", price: "3.50", desc: "Rotating single origin, freshly brewed" },
-        { name: "Pour Over", price: "5.00", desc: "Made to order, choose your bean" },
-        { name: "Cold Brew", price: "4.50", desc: "Smooth, never bitter, steeped 16 hours" },
-        { name: "Nitro Cold Brew", price: "5.50", desc: "Cascading cold brew on tap" }
+        { name: "Frappé", price: "TBD", desc: "Bebida fría batida" },
+        { name: "Café Helado", price: "TBD", desc: "Café servido con hielo" },
+        { name: "Smoothie", price: "TBD", desc: "Batido de frutas frescas" }
       ]
     },
     {
-      category: "Specialty",
+      category: "Wafles",
       items: [
-        { name: "Chai Latte", price: "5.00", desc: "House-made spiced chai with steamed milk" },
-        { name: "Matcha Latte", price: "5.50", desc: "Ceremonial grade matcha, creamy and smooth" },
-        { name: "Hot Chocolate", price: "4.00", desc: "Rich Belgian chocolate, steamed milk" }
+        { name: "Waffle Especial", price: "TBD", desc: "Waffle con toppings" }
       ]
     },
     {
-      category: "Pastries",
+      category: "Postres",
       items: [
-        { name: "Croissant", price: "4.00", desc: "Buttery, flaky, baked fresh daily" },
-        { name: "Almond Croissant", price: "5.00", desc: "Filled with almond cream, toasted almonds" },
-        { name: "Blueberry Muffin", price: "4.50", desc: "Packed with fresh blueberries" },
-        { name: "Banana Bread", price: "4.00", desc: "Moist, with walnuts and cinnamon" }
+        { name: "Pastel de Zanahoria", price: "TBD", desc: "Pastel húmedo de zanahoria" },
+        { name: "Brownie", price: "TBD", desc: "Brownie de chocolate" }
       ]
     }
   ],
@@ -92,29 +89,29 @@ const SHOP = {
   
   // Hours
   hours: {
-    monday: "7:00 AM - 6:00 PM",
-    tuesday: "7:00 AM - 6:00 PM",
-    wednesday: "7:00 AM - 6:00 PM",
-    thursday: "7:00 AM - 6:00 PM",
-    friday: "7:00 AM - 8:00 PM",
-    saturday: "8:00 AM - 8:00 PM",
-    sunday: "8:00 AM - 4:00 PM"
+    monday: "7:00 AM - 9:00 PM",
+    tuesday: "7:00 AM - 9:00 PM",
+    wednesday: "7:00 AM - 9:00 PM",
+    thursday: "7:00 AM - 9:00 PM",
+    friday: "7:00 AM - 9:00 PM",
+    saturday: "7:00 AM - 9:00 PM",
+    sunday: "7:00 AM - 9:00 PM"
   },
   
   // Location & Contact
-  address: "123 Main Street, Springfield, IL 62701",
-  phone: "(555) 123-4567",
-  email: "hello@roastedroots.coffee",
+  address: "Blvd. Roberto Romero Larios, Comayagua, Honduras, COM12101",
+  phone: "+504 95829775",
+  email: "info@calacoffeeroasters.com",
   
   // Social Media
   social: {
-    instagram: "https://instagram.com/roastedrootscoffee",
-    facebook: "https://facebook.com/roastedrootscoffee"
+    instagram: "https://instagram.com/cala_coffee_roasters",
+    facebook: "https://www.facebook.com/calacoffeeroasters"
   },
   
   // Google Maps Embed URL
   // Get this from: google.com/maps → Search location → Share → Embed a map
-  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.9604740583894!2d-89.65037708459394!3d39.78172997944751!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDQ2JzU0LjIiTiA4OcKwMzgnNTQuMCJX!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus",
+  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3856.5!2d-87.65!3d14.45!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zQ0FMQSBDB2ZmZWUgUm9hc3RlcnM!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1ses!2shn",
   
   // Testimonials
   testimonials: [
@@ -137,9 +134,9 @@ const SHOP = {
   
   // CTA Banner
   ctaBanner: {
-    headline: "Come visit us today",
-    subheadline: "Experience the perfect cup",
-    buttonText: "Get Directions",
+    headline: "Visítanos hoy",
+    subheadline: "Experimenta el café perfecto",
+    buttonText: "Cómo Llegar",
     buttonLink: "#location"
   }
 };
