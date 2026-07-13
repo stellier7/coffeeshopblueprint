@@ -37,7 +37,7 @@ const SHOP = {
   about: {
     title: "Nuestra Historia",
     text: "CALA Coffee Roasters es una nueva experiencia en café en el corazón de Comayagua. Nos especializamos en café de especialidad, tostado con pasión y servido con dedicación. Somos más que una cafetería, somos un espacio donde la comunidad se encuentra y cada visita es especial.",
-    image: "https://i.imgur.com/J1aQOiD.jpg"
+    image: "https://i.imgur.com/qIt5miW.jpg"
   },
   
   // Menu - Organized by category
@@ -79,14 +79,13 @@ const SHOP = {
   
   // Gallery - Image URLs
   gallery: [
-    "https://i.imgur.com/J1aQOiD.jpg",
     "https://i.imgur.com/qIt5miW.jpg",
+    "https://i.imgur.com/sV9Ovev.jpg",
+    "https://i.imgur.com/aDDhqAW.jpg",
+    "https://i.imgur.com/J1aQOiD.jpg",
     "https://i.imgur.com/NizDZl1.jpg",
     "https://i.imgur.com/j2cL5NI.jpg",
-    "https://i.imgur.com/aDDhqAW.jpg",
-    "https://i.imgur.com/zQF0BSy.jpg",
-    "https://i.imgur.com/sV9Ovev.jpg",
-    "https://i.imgur.com/6ApiIQr.jpg"
+    "https://i.imgur.com/zQF0BSy.jpg"
   ],
   
   // Hours
