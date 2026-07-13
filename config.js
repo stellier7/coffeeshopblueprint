@@ -26,7 +26,7 @@ const SHOP = {
   
   // Hero Section
   hero: {
-    image: "https://i.imgur.com/6ApiIQr.jpg",
+    image: "https://i.imgur.com/zQF0BSy.jpg",
     headline: "Café de especialidad en Comayagua",
     subheadline: "Una nueva experiencia en café",
     ctaText: "Ver Menú",
