@@ -26,7 +26,7 @@ const SHOP = {
   
   // Hero Section
   hero: {
-    image: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=1920&q=80",
+    image: "https://i.imgur.com/6ApiIQr.jpg",
     headline: "Café de especialidad en Comayagua",
     subheadline: "Una nueva experiencia en café",
     ctaText: "Ver Menú",
@@ -37,7 +37,7 @@ const SHOP = {
   about: {
     title: "Nuestra Historia",
     text: "CALA Coffee Roasters es una nueva experiencia en café en el corazón de Comayagua. Nos especializamos en café de especialidad, tostado con pasión y servido con dedicación. Somos más que una cafetería, somos un espacio donde la comunidad se encuentra y cada visita es especial.",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80"
+    image: "https://i.imgur.com/J1aQOiD.jpg"
   },
   
   // Menu - Organized by category
@@ -79,12 +79,14 @@ const SHOP = {
   
   // Gallery - Image URLs
   gallery: [
-    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80",
-    "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80",
-    "https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=600&q=80",
-    "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80",
-    "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&q=80",
-    "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=80"
+    "https://i.imgur.com/J1aQOiD.jpg",
+    "https://i.imgur.com/qIt5miW.jpg",
+    "https://i.imgur.com/NizDZl1.jpg",
+    "https://i.imgur.com/j2cL5NI.jpg",
+    "https://i.imgur.com/aDDhqAW.jpg",
+    "https://i.imgur.com/zQF0BSy.jpg",
+    "https://i.imgur.com/sV9Ovev.jpg",
+    "https://i.imgur.com/6ApiIQr.jpg"
   ],
   
   // Hours
