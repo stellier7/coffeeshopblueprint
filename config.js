@@ -6,9 +6,9 @@
 
 const SHOP = {
   // Basic Info
-  name: "Roasted Roots Coffee Co.",
-  tagline: "Small batch. Big heart.",
-  logoText: "RR", // Used if no logo image is provided
+  name: "CALA Coffee Roasters",
+  tagline: "Specialty Coffee in Comayagua",
+  logoText: "CALA", // Used if no logo image is provided
   
   // Colors - These will be applied site-wide via CSS custom properties
   colors: {
