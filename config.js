@@ -6,76 +6,76 @@
 
 const SHOP = {
   // Basic Info
-  name: "Roasted Roots Coffee Co.",
-  tagline: "Small batch. Big heart.",
-  logoText: "RR", // Used if no logo image is provided
+  name: "Oddity Coffee Roasters",
+  tagline: "Exceptionally unusual. Unusually exceptional.",
+  logoText: "OC", // Used if no logo image is provided
   
   // Colors - These will be applied site-wide via CSS custom properties
   colors: {
-    primary: "#4A2C2A",      // Deep brown - main brand color
-    accent: "#C9A227",       // Golden - for highlights and CTAs
-    background: "#FAF6F1",   // Warm off-white
-    text: "#2B1B17"          // Dark brown for text
+    primary: "#1A1A2E",      // Deep midnight blue - main brand color
+    accent: "#E94560",       // Electric pink - for highlights and CTAs
+    background: "#F8F4E3",   // Warm cream
+    text: "#16213E"          // Dark navy for text
   },
   
   // Typography - Google Fonts will be loaded automatically
   fonts: {
-    heading: "Playfair Display", // Elegant serif for headings
-    body: "Inter"                 // Clean sans-serif for body text
+    heading: "Space Grotesk", // Modern, quirky sans-serif for headings
+    body: "Inter"              // Clean sans-serif for body text
   },
   
   // Hero Section
   hero: {
     image: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=1920&q=80",
-    headline: "Handcrafted coffee, made with care",
-    subheadline: "Your neighborhood coffee shop since 2020",
-    ctaText: "View Menu",
+    headline: "Coffee that dares to be different",
+    subheadline: "Experimental roasts. Bold flavors. Unconventional excellence.",
+    ctaText: "Explore Our Oddities",
     ctaLink: "#menu"
   },
   
   // About Section
   about: {
-    title: "Our Story",
-    text: "Born from a passion for exceptional coffee and community connection, Roasted Roots Coffee Co. opened its doors in 2020. We source our beans directly from sustainable farms, roast in small batches, and craft each cup with intention. More than a coffee shop, we're a gathering place where neighbors become friends and every visit feels like coming home.",
+    title: "The Oddity Origin",
+    text: "We're not your average coffee shop, and we're proud of it. Founded by coffee rebels who believe the best beans come from taking risks, Oddity Coffee Roasters specializes in experimental roasting techniques and rare single origins. We hunt down the most interesting beans from around the world, then push boundaries with our roasting profiles. The result? Cups that surprise, delight, and challenge everything you thought you knew about coffee.",
     image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80"
   },
   
   // Menu - Organized by category
   menu: [
     {
-      category: "Espresso Drinks",
+      category: "Signature Oddities",
       items: [
-        { name: "Espresso", price: "3.00", desc: "Single origin, pulled to perfection" },
-        { name: "Cappuccino", price: "4.50", desc: "Rich espresso, steamed milk, velvety foam" },
-        { name: "Flat White", price: "4.75", desc: "Microfoam over double espresso" },
-        { name: "Latte", price: "5.00", desc: "Smooth espresso with steamed milk" },
-        { name: "Mocha", price: "5.50", desc: "Espresso, chocolate, steamed milk, whipped cream" }
+        { name: "The Midnight Anomaly", price: "6.00", desc: "Espresso with activated charcoal, vanilla, oat milk" },
+        { name: "Lavender Lightning", price: "5.50", desc: "Double shot, house lavender syrup, sparkling water" },
+        { name: "Citrus Paradox", price: "5.75", desc: "Cold brew, orange zest, cardamom, tonic" },
+        { name: "Maple Smoke", price: "6.50", desc: "Smoked maple latte with sea salt foam" }
       ]
     },
     {
-      category: "Brewed Coffee",
+      category: "Classic Reimagined",
       items: [
-        { name: "Drip Coffee", price: "3.50", desc: "Rotating single origin, freshly brewed" },
-        { name: "Pour Over", price: "5.00", desc: "Made to order, choose your bean" },
-        { name: "Cold Brew", price: "4.50", desc: "Smooth, never bitter, steeped 16 hours" },
-        { name: "Nitro Cold Brew", price: "5.50", desc: "Cascading cold brew on tap" }
+        { name: "The Rebel Cappuccino", price: "5.00", desc: "Traditional cap with house-roasted experimental blend" },
+        { name: "Flat White 2.0", price: "5.25", desc: "Oat milk microfoam, house espresso blend" },
+        { name: "Cortado Obscura", price: "4.50", desc: "Dark roast espresso, steamed milk, perfect balance" },
+        { name: "Oddity Latte", price: "5.50", desc: "Your choice of milk with our signature blend" }
       ]
     },
     {
-      category: "Specialty",
+      category: "Cold Concoctions",
       items: [
-        { name: "Chai Latte", price: "5.00", desc: "House-made spiced chai with steamed milk" },
-        { name: "Matcha Latte", price: "5.50", desc: "Ceremonial grade matcha, creamy and smooth" },
-        { name: "Hot Chocolate", price: "4.00", desc: "Rich Belgian chocolate, steamed milk" }
+        { name: "Nitro Noir", price: "6.00", desc: "Nitrogen-infused cold brew, cascading perfection" },
+        { name: "Iced Unicorn", price: "6.50", desc: "Butterfly pea flower, espresso, coconut milk" },
+        { name: "Flash Brew", price: "5.50", desc: "Japanese iced coffee, bright and complex" },
+        { name: "Cold Snap", price: "5.00", desc: "Classic cold brew, 18-hour steep" }
       ]
     },
     {
-      category: "Pastries",
+      category: "Strange Snacks",
       items: [
-        { name: "Croissant", price: "4.00", desc: "Buttery, flaky, baked fresh daily" },
-        { name: "Almond Croissant", price: "5.00", desc: "Filled with almond cream, toasted almonds" },
-        { name: "Blueberry Muffin", price: "4.50", desc: "Packed with fresh blueberries" },
-        { name: "Banana Bread", price: "4.00", desc: "Moist, with walnuts and cinnamon" }
+        { name: "Black Sesame Croissant", price: "5.00", desc: "Buttery layers with black sesame paste" },
+        { name: "Matcha Cardamom Muffin", price: "4.50", desc: "Unexpected flavor combo, surprisingly perfect" },
+        { name: "Tahini Chocolate Chip Cookie", price: "4.00", desc: "Chewy, nutty, ridiculously good" },
+        { name: "Mystery Pastry", price: "4.50", desc: "Chef's choice, always interesting" }
       ]
     }
   ],
@@ -92,24 +92,24 @@ const SHOP = {
   
   // Hours
   hours: {
-    monday: "7:00 AM - 6:00 PM",
-    tuesday: "7:00 AM - 6:00 PM",
-    wednesday: "7:00 AM - 6:00 PM",
-    thursday: "7:00 AM - 6:00 PM",
-    friday: "7:00 AM - 8:00 PM",
-    saturday: "8:00 AM - 8:00 PM",
-    sunday: "8:00 AM - 4:00 PM"
+    monday: "6:30 AM - 7:00 PM",
+    tuesday: "6:30 AM - 7:00 PM",
+    wednesday: "6:30 AM - 7:00 PM",
+    thursday: "6:30 AM - 7:00 PM",
+    friday: "6:30 AM - 9:00 PM",
+    saturday: "7:00 AM - 9:00 PM",
+    sunday: "7:00 AM - 6:00 PM"
   },
   
   // Location & Contact
-  address: "123 Main Street, Springfield, IL 62701",
-  phone: "(555) 123-4567",
-  email: "hello@roastedroots.coffee",
+  address: "456 Bohemian Avenue, Portland, OR 97214",
+  phone: "(555) ODD-CAFE",
+  email: "hello@odditycoffee.com",
   
   // Social Media
   social: {
-    instagram: "https://instagram.com/roastedrootscoffee",
-    facebook: "https://facebook.com/roastedrootscoffee"
+    instagram: "https://instagram.com/odditycoffeeroasters",
+    facebook: "https://facebook.com/odditycoffeeroasters"
   },
   
   // Google Maps Embed URL
@@ -119,27 +119,27 @@ const SHOP = {
   // Testimonials
   testimonials: [
     {
-      quote: "The best coffee in town, hands down. The baristas are friendly and the atmosphere is perfect for getting work done or catching up with friends.",
-      author: "Sarah M.",
-      role: "Local Regular"
+      quote: "I thought I knew coffee until I tried the Midnight Anomaly. This place doesn't just serve drinks—they create experiences. Absolutely mind-blowing.",
+      author: "Alex K.",
+      role: "Coffee Explorer"
     },
     {
-      quote: "I love that they source their beans ethically and roast in-house. You can really taste the difference. The pour over is exceptional!",
-      author: "James T.",
-      role: "Coffee Enthusiast"
+      quote: "Finally, a coffee shop that isn't afraid to be weird! The experimental roasts are incredible and the vibe is perfectly imperfect. My new favorite spot.",
+      author: "Jordan P.",
+      role: "Creative Regular"
     },
     {
-      quote: "This place has become my second home. Great coffee, amazing pastries, and the most welcoming community vibe.",
-      author: "Emily R.",
-      role: "Neighborhood Neighbor"
+      quote: "The Mystery Pastry is always a gamble and always amazing. These folks understand that the best things in life are a little odd.",
+      author: "Sam L.",
+      role: "Risk Taker"
     }
   ],
   
   // CTA Banner
   ctaBanner: {
-    headline: "Come visit us today",
-    subheadline: "Experience the perfect cup",
-    buttonText: "Get Directions",
+    headline: "Embrace the oddity",
+    subheadline: "Come taste what makes us different",
+    buttonText: "Find Us",
     buttonLink: "#location"
   }
 };
