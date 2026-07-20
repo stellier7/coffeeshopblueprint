@@ -153,6 +153,17 @@ button:focus-visible {
     animation-duration: 0.01ms !important;
     animation-delay: 0s !important;
   }
+  
+  /* Gallery section - instant reveal, no 3D flip */
+  .gallery-item.fade-in {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .gallery-item.fade-in.visible {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+  }
 }
 
 /* ============================================================
@@ -930,11 +941,18 @@ p {
 }
 
 /* ============================================================
-   Gallery Section
+   Gallery Section - 3D Flip Cascade with Warm Gradient
    ============================================================ */
 .gallery {
   position: relative;
-  background-color: var(--white);
+  background: linear-gradient(
+    160deg,
+    #FAF8F5 0%,
+    #F5F1E8 25%,
+    #FFF9EE 50%,
+    #F8F4EC 75%,
+    #FAF6F1 100%
+  );
   z-index: 2;
 }
 
@@ -942,6 +960,8 @@ p {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
+  perspective: 1500px;
+  perspective-origin: center;
 }
 
 .gallery-item {
@@ -951,12 +971,58 @@ p {
   cursor: pointer;
   aspect-ratio: 1;
   box-shadow: var(--shadow-sm);
-  transition: var(--transition);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 }
 
-.gallery-item:hover {
+/* Dramatic 3D flip entrance state */
+.gallery-item.fade-in {
+  opacity: 0;
+  transform: perspective(1000px) rotateY(90deg) scale(0.8);
+  transition: none;
+}
+
+/* 3D flip cascade animation when visible */
+.gallery-item.fade-in.visible {
+  animation: gallery3DFlip 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Diagonal cascade pattern - staggered delays */
+.gallery-item.fade-in.visible:nth-child(1) { animation-delay: 0s; }
+.gallery-item.fade-in.visible:nth-child(2) { animation-delay: 0.15s; }
+.gallery-item.fade-in.visible:nth-child(3) { animation-delay: 0.3s; }
+.gallery-item.fade-in.visible:nth-child(4) { animation-delay: 0.2s; }
+.gallery-item.fade-in.visible:nth-child(5) { animation-delay: 0.35s; }
+.gallery-item.fade-in.visible:nth-child(6) { animation-delay: 0.5s; }
+.gallery-item.fade-in.visible:nth-child(7) { animation-delay: 0.4s; }
+.gallery-item.fade-in.visible:nth-child(8) { animation-delay: 0.55s; }
+.gallery-item.fade-in.visible:nth-child(9) { animation-delay: 0.7s; }
+.gallery-item.fade-in.visible:nth-child(10) { animation-delay: 0.6s; }
+.gallery-item.fade-in.visible:nth-child(11) { animation-delay: 0.75s; }
+.gallery-item.fade-in.visible:nth-child(12) { animation-delay: 0.9s; }
+
+/* 3D flip reveal keyframes */
+@keyframes gallery3DFlip {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) rotateY(90deg) scale(0.8);
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(0deg) scale(1);
+  }
+}
+
+.gallery-item.visible {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item.visible:hover {
   box-shadow: var(--shadow-xl);
-  transform: translateY(-4px);
+  transform: translateY(-8px) scale(1.03);
 }
 
 .gallery-item img {
@@ -967,7 +1033,7 @@ p {
   will-change: transform;
 }
 
-.gallery-item:hover img {
+.gallery-item.visible:hover img {
   transform: scale(1.1) rotate(1deg);
 }
 
@@ -1002,16 +1068,16 @@ p {
   z-index: 1;
 }
 
-.gallery-item:hover::before {
+.gallery-item.visible:hover::before {
   opacity: 1;
 }
 
-.gallery-item:hover::after {
+.gallery-item.visible:hover::after {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
 }
 
-.gallery-item:active {
+.gallery-item.visible:active {
   transform: translateY(-2px) scale(0.98);
 }
 
