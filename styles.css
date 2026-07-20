@@ -550,9 +550,9 @@ p {
 
 .hero-logo {
   position: absolute;
-  top: 140px;
+  top: 25%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1925,12 +1925,12 @@ p {
   
   /* Hero logo responsive sizing */
   .hero-logo {
-    top: 100px;
+    top: 110px;
   }
   
   .hero-logo-image {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
   }
   
   /* Adjust hero entrance travel distance for mobile */
