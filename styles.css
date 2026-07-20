@@ -550,7 +550,7 @@ p {
 
 .hero-logo {
   position: absolute;
-  top: 180px;
+  top: 100px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -1923,14 +1923,41 @@ p {
     right: 12px;
   }
   
-  /* Hero logo responsive sizing */
+  /* Hero logo responsive sizing - PORTRAIT MOBILE ONLY */
+  .hero-logo-image {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* Portrait orientation - position logo between navbar and text */
+@media (max-width: 768px) and (orientation: portrait) {
   .hero-logo {
-    top: 22%;
+    top: 120px;
+  }
+}
+
+/* Landscape orientation - logo close to navbar */  
+@media (orientation: landscape) {
+  .hero-logo {
+    top: 100px !important;
   }
   
   .hero-logo-image {
     width: 120px;
     height: 120px;
+  }
+}
+
+/* Large landscape screens */
+@media (min-width: 1024px) and (orientation: landscape) {
+  .hero-logo {
+    top: 110px !important;
+  }
+  
+  .hero-logo-image {
+    width: 160px;
+    height: 160px;
   }
   
   /* Adjust hero entrance travel distance for mobile */
