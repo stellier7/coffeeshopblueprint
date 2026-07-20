@@ -440,6 +440,23 @@ function setupScrollAnimations() {
   fadeElements.forEach(element => {
     observer.observe(element);
   });
+  
+  // Special observer for CTA banner section
+  const ctaBanner = document.querySelector('.cta-banner');
+  if (ctaBanner) {
+    const ctaObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('section-visible');
+        }
+      });
+    }, {
+      threshold: 0.2,
+      rootMargin: '0px 0px -100px 0px'
+    });
+    
+    ctaObserver.observe(ctaBanner);
+  }
 }
 
 // ============================================================
