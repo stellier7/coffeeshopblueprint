@@ -240,16 +240,29 @@ p {
   left: 0;
   right: 0;
   z-index: 1000;
-  background-color: rgba(255, 255, 255, 0.98);
+  background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px) saturate(180%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
   box-shadow: var(--shadow-sm);
-  transition: var(--transition);
+  transform: translateY(0);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
   will-change: transform;
 }
 
-.navbar.scrolled {
-  box-shadow: var(--shadow-md);
+/* Hidden state - slides up out of view */
+.navbar--hidden {
+  transform: translateY(-100%);
+}
+
+/* Scrolled state - enhanced shadow and background */
+.navbar--scrolled {
+  background-color: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Keep navbar visible when mobile menu is open */
+.navbar.mobile-menu-open {
+  transform: translateY(0) !important;
 }
 
 .nav-container {
@@ -373,16 +386,16 @@ p {
 }
 
 .hero-image {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-size: cover;
-  background-position: center;
+  background-position: center center;
   background-repeat: no-repeat;
   will-change: transform;
-  animation: subtleZoom 20s ease-in-out infinite alternate;
+  z-index: -1;
 }
 
 @keyframes subtleZoom {
@@ -395,17 +408,19 @@ p {
 }
 
 .hero-overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: linear-gradient(
     135deg,
     rgba(74, 44, 42, 0.75) 0%,
     rgba(74, 44, 42, 0.5) 50%,
     rgba(74, 44, 42, 0.35) 100%
   );
+  z-index: -1;
+  pointer-events: none;
 }
 
 .hero-content {
