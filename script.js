@@ -104,7 +104,11 @@ function populateHero() {
   const heroCTA = document.getElementById('hero-cta');
   
   heroImage.style.backgroundImage = `url('${SHOP.hero.image}')`;
-  heroHeadline.textContent = SHOP.hero.headline;
+  
+  // Keep emoji on same line by using non-breaking space
+  const headlineText = SHOP.hero.headline.replace(/\.\s*✨/g, '.&nbsp;✨');
+  heroHeadline.innerHTML = headlineText;
+  
   heroSubheadline.textContent = SHOP.hero.subheadline;
   heroCTA.textContent = SHOP.hero.ctaText;
   heroCTA.href = SHOP.hero.ctaLink;
