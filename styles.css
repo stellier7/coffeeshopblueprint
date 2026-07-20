@@ -544,6 +544,8 @@ p {
   opacity: 0;
   transform: translateX(-100px);
   letter-spacing: 0.02em;
+  white-space: normal;
+  line-height: 1.3;
 }
 
 .hero-subheadline {

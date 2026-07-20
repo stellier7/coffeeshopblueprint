@@ -23,7 +23,7 @@ const SHOP = {
   fonts: {
     heading: "Poppins",      // Modern, friendly sans-serif for headings
     body: "Inter",           // Clean, readable sans-serif for body text
-    heroScript: "Kaushan Script"  // Handwritten script for hero headline
+    heroScript: "Pacifico"   // Handwritten script for hero headline
   },
   
   // Hero Section
