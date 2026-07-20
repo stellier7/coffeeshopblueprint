@@ -2085,6 +2085,11 @@ p {
     width: 120px;
     height: 120px;
   }
+  
+  /* Push hero content down to avoid logo overlap */
+  .hero-content {
+    margin-top: 80px;
+  }
 }
 
 /* Large landscape screens */
@@ -2096,6 +2101,11 @@ p {
   .hero-logo-image {
     width: 160px;
     height: 160px;
+  }
+  
+  /* Push hero content down to avoid logo overlap */
+  .hero-content {
+    margin-top: 100px;
   }
   
   /* Adjust hero entrance travel distance for mobile */
