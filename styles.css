@@ -54,12 +54,20 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   min-height: 100vh;
+  width: 100%;
+  position: relative;
 }
 
 img {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+/* Ensure all content is constrained within viewport */
+* {
+  max-width: 100%;
+  word-wrap: break-word;
 }
 
 a {
@@ -109,6 +117,9 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   line-height: 1.2;
   font-weight: 700;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 h1 {
@@ -126,6 +137,9 @@ h3 {
 p {
   font-size: clamp(1rem, 2vw, 1.125rem);
   line-height: 1.8;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 /* ============================================================
@@ -133,12 +147,17 @@ p {
    ============================================================ */
 .container {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 0 1.5rem;
+  box-sizing: border-box;
 }
 
 .section {
   padding: 5rem 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .section-title {
@@ -453,6 +472,8 @@ p {
    ============================================================ */
 .about {
   background-color: var(--white);
+  width: 100%;
+  overflow: hidden;
 }
 
 .about-grid {
@@ -460,6 +481,8 @@ p {
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: center;
+  width: 100%;
+  max-width: 100%;
 }
 
 .about-text {
@@ -467,6 +490,9 @@ p {
   margin-top: 1rem;
   line-height: 1.9;
   font-size: 1.05rem;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .about-image-wrapper {
@@ -517,12 +543,16 @@ p {
    ============================================================ */
 .menu {
   background-color: var(--background);
+  width: 100%;
+  overflow: hidden;
 }
 
 .menu-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
+  width: 100%;
+  max-width: 100%;
 }
 
 .menu-category {
@@ -637,12 +667,16 @@ p {
    ============================================================ */
 .gallery {
   background-color: var(--white);
+  width: 100%;
+  overflow: hidden;
 }
 
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
+  width: 100%;
+  max-width: 100%;
 }
 
 .gallery-item {
@@ -836,12 +870,16 @@ p {
    ============================================================ */
 .testimonials {
   background-color: var(--background);
+  width: 100%;
+  overflow: hidden;
 }
 
 .testimonials-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
+  width: 100%;
+  max-width: 100%;
 }
 
 .testimonial-card {
@@ -906,12 +944,16 @@ p {
    ============================================================ */
 .location {
   background-color: var(--white);
+  width: 100%;
+  overflow: hidden;
 }
 
 .location-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
+  width: 100%;
+  max-width: 100%;
 }
 
 .location-info {
@@ -1021,6 +1063,7 @@ p {
   text-align: center;
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 
 .cta-banner::before {
@@ -1094,6 +1137,8 @@ p {
   color: var(--white);
   padding: 3rem 0;
   text-align: center;
+  width: 100%;
+  overflow: hidden;
 }
 
 .footer-content {
@@ -1163,6 +1208,25 @@ p {
    Responsive Design
    ============================================================ */
 @media (max-width: 768px) {
+  /* Ensure no horizontal overflow on mobile */
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  /* Ensure all sections are properly centered */
+  .section {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  /* Container adjustments for mobile */
+  .container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 1.25rem;
+  }
+  
   .mobile-menu-toggle {
     display: flex;
   }
@@ -1218,24 +1282,70 @@ p {
     padding-left: 1rem;
   }
   
-  .about-grid,
+  /* Ensure about section is centered on mobile */
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .about-content,
+  .about-image-wrapper {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .about-image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Location section centering */
   .location-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
+    width: 100%;
+    max-width: 100%;
   }
   
+  /* Menu section centering */
   .menu-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
+    width: 100%;
+    max-width: 100%;
   }
   
+  .menu-category {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  /* Gallery centering */
   .gallery-grid {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1rem;
+    width: 100%;
+    max-width: 100%;
   }
   
+  .gallery-item {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  /* Testimonials centering */
   .testimonials-grid {
     grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .testimonial-card {
+    width: 100%;
+    max-width: 100%;
   }
   
   .section {
@@ -1244,6 +1354,8 @@ p {
   
   .map-wrapper {
     height: 350px;
+    width: 100%;
+    max-width: 100%;
   }
   
   .lightbox-prev,
@@ -1266,6 +1378,8 @@ p {
   
   .hero-content {
     padding: 1.5rem;
+    width: 100%;
+    max-width: 100%;
   }
   
   .btn {
@@ -1275,34 +1389,58 @@ p {
 }
 
 @media (max-width: 480px) {
+  /* Ensure proper centering on small mobile devices */
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
   .container {
     padding: 0 1rem;
+    width: 100%;
+    max-width: 100%;
   }
   
   .menu-category,
   .testimonial-card {
     padding: 1.5rem;
+    width: 100%;
+    max-width: 100%;
   }
   
   .btn {
     padding: 0.875rem 2rem;
     font-size: 0.938rem;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
   }
   
   .hero {
     min-height: 500px;
+    width: 100%;
+  }
+  
+  .hero-content {
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem;
   }
   
   .gallery-grid {
     grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 100%;
   }
   
   .nav-container {
     padding: 0.75rem 1rem;
+    width: 100%;
   }
   
   .section-title {
     margin-bottom: 2rem;
+    text-align: center;
   }
   
   .lightbox-prev {
