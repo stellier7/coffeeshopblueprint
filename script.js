@@ -64,10 +64,23 @@ function loadFonts() {
 // Populate Navigation
 // ============================================================
 function populateNavigation() {
+  const logoLink = document.getElementById('logo-link');
   const logoText = document.getElementById('logo-text');
   
-  // Always use text logo in navbar for clean, minimal look
-  logoText.textContent = SHOP.logoText || SHOP.name;
+  // Show both logo image AND text in navbar
+  if (SHOP.logoImage && SHOP.logoImage.trim() !== '') {
+    // Create image element for logo
+    const logoImg = document.createElement('img');
+    logoImg.src = SHOP.logoImage;
+    logoImg.alt = SHOP.name + ' Logo';
+    logoImg.className = 'logo-image';
+    
+    // Insert logo before text
+    logoLink.insertBefore(logoImg, logoText);
+  }
+  
+  // Always show the business name
+  logoText.textContent = SHOP.name;
 }
 
 // ============================================================
