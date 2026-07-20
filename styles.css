@@ -545,20 +545,18 @@ p {
   color: var(--white);
   max-width: 900px;
   padding: 2rem;
-  padding-top: 6rem;
   will-change: transform, opacity;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 3rem;
 }
 
 .hero-logo {
+  position: absolute;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: -2rem;
+  z-index: 3;
 }
 
 .hero-logo-image {
