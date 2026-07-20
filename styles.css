@@ -723,27 +723,59 @@ p {
 }
 
 /* ============================================================
-   Menu Section - Dramatic Sequential Reveal
+   Menu Section - Fixed Parallax Coffee Background
    ============================================================ */
 .menu {
   position: relative;
-  background-color: var(--background);
+  background-image: url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=2000');
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   z-index: 2;
+}
+
+/* Dark coffee-tinted overlay for contrast */
+.menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(43, 27, 23, 0.85) 0%,
+    rgba(74, 44, 42, 0.82) 50%,
+    rgba(43, 27, 23, 0.88) 100%
+  );
+  z-index: -1;
+}
+
+/* Menu title styling for dark background */
+.menu .section-title {
+  color: var(--white);
+  text-shadow: 2px 4px 12px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 1;
 }
 
 .menu-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .menu-category {
   background-color: var(--white);
   padding: 2rem;
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   position: relative;
   overflow: hidden;
+  border: 1px solid rgba(201, 162, 39, 0.1);
 }
 
 /* Dramatic entrance state - hidden by default */
@@ -820,8 +852,9 @@ p {
 }
 
 .menu-category.visible:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(201, 162, 39, 0.3);
+  border-color: rgba(201, 162, 39, 0.3);
 }
 
 .menu-category-title {
@@ -1436,6 +1469,11 @@ p {
    Responsive Design
    ============================================================ */
 @media (max-width: 768px) {
+  /* Fix for iOS - fixed backgrounds don't work well on mobile */
+  .menu {
+    background-attachment: scroll;
+  }
+  
   .mobile-menu-toggle {
     display: flex;
   }
