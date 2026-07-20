@@ -73,7 +73,9 @@ function populateNavigation() {
     logoImg.src = SHOP.logoImage;
     logoImg.alt = SHOP.name;
     logoImg.style.height = '40px';
-    logoImg.style.width = 'auto';
+    logoImg.style.width = '40px';
+    logoImg.style.borderRadius = '50%';
+    logoImg.style.objectFit = 'cover';
     logoText.innerHTML = '';
     logoText.appendChild(logoImg);
   } else {
