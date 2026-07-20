@@ -95,11 +95,11 @@ const SHOP = {
   // Gallery - Image URLs
   gallery: [
     "https://i.imgur.com/pZX0I4L.jpeg",
-    "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&q=80",
-    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80",
-    "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80",
-    "https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=600&q=80",
-    "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80"
+    "https://i.imgur.com/99Tfqym.jpg",
+    "https://i.imgur.com/jftBzhr.jpg",
+    "https://i.imgur.com/QtGV0AR.jpg",
+    "https://i.imgur.com/nqNNabR.jpg",
+    "https://i.imgur.com/mlkQXWH.jpg"
   ],
   
   // Hours
