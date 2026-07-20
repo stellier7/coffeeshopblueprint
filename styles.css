@@ -130,6 +130,29 @@ button:focus-visible {
     opacity: 1 !important;
     transform: none !important;
   }
+  
+  /* About section - instant reveal */
+  .about-content.fade-in,
+  .about-image-wrapper.fade-in {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .about-content.fade-in.visible,
+  .about-image-wrapper.fade-in.visible {
+    animation-duration: 0.01ms !important;
+  }
+  
+  /* Menu section - instant reveal, no stagger */
+  .menu-category.fade-in {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .menu-category.fade-in.visible {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+  }
 }
 
 /* ============================================================
@@ -580,7 +603,7 @@ p {
 }
 
 /* ============================================================
-   About Section
+   About Section - Dramatic "Our Story" Entrance
    ============================================================ */
 .about {
   background-color: var(--white);
@@ -600,17 +623,61 @@ p {
   font-size: 1.05rem;
 }
 
+/* Dramatic entrance states - hidden by default */
+.about-content.fade-in {
+  opacity: 0;
+  transform: translateX(-80px);
+  transition: none;
+}
+
+.about-image-wrapper.fade-in {
+  opacity: 0;
+  transform: translateX(80px) scale(1.1);
+  transition: none;
+}
+
+/* Dramatic entrance animations when visible */
+.about-content.fade-in.visible {
+  animation: aboutSlideFromLeft 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.about-image-wrapper.fade-in.visible {
+  animation: aboutImageReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+@keyframes aboutSlideFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes aboutImageReveal {
+  from {
+    opacity: 0;
+    transform: translateX(80px) scale(1.1);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
 .about-image-wrapper {
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-md);
   position: relative;
-  transition: var(--transition);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.about-image-wrapper:hover {
+.about-image-wrapper.visible:hover {
   box-shadow: var(--shadow-xl);
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.02);
 }
 
 .about-image-wrapper::before {
@@ -627,7 +694,7 @@ p {
   z-index: 1;
 }
 
-.about-image-wrapper:hover::before {
+.about-image-wrapper.visible:hover::before {
   opacity: 1;
 }
 
@@ -639,12 +706,12 @@ p {
   will-change: transform;
 }
 
-.about-image:hover {
+.about-image-wrapper.visible:hover .about-image {
   transform: scale(1.05);
 }
 
 /* ============================================================
-   Menu Section
+   Menu Section - Dramatic Sequential Reveal
    ============================================================ */
 .menu {
   background-color: var(--background);
@@ -661,9 +728,61 @@ p {
   padding: 2rem;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
-  transition: var(--transition);
   position: relative;
   overflow: hidden;
+}
+
+/* Dramatic entrance state - hidden by default */
+.menu-category.fade-in {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  transition: none;
+}
+
+/* Sequential reveal with staggered delays */
+.menu-category.fade-in.visible {
+  animation: menuCategoryReveal 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Stagger delays for sequential appearance */
+.menu-category.fade-in.visible:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.menu-category.fade-in.visible:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.menu-category.fade-in.visible:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.menu-category.fade-in.visible:nth-child(4) {
+  animation-delay: 0.9s;
+}
+
+.menu-category.fade-in.visible:nth-child(5) {
+  animation-delay: 1.2s;
+}
+
+.menu-category.fade-in.visible:nth-child(6) {
+  animation-delay: 1.5s;
+}
+
+@keyframes menuCategoryReveal {
+  from {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Hover effects only after element is visible */
+.menu-category.visible {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .menu-category::before {
@@ -682,11 +801,11 @@ p {
   transition: left 0.5s ease;
 }
 
-.menu-category:hover::before {
+.menu-category.visible:hover::before {
   left: 100%;
 }
 
-.menu-category:hover {
+.menu-category.visible:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
 }
@@ -1477,6 +1596,49 @@ p {
     to {
       opacity: 1;
       transform: translateX(0);
+    }
+  }
+  
+  /* Adjust about section travel distance for mobile */
+  .about-content.fade-in {
+    transform: translateX(-50px);
+  }
+  
+  .about-image-wrapper.fade-in {
+    transform: translateX(50px) scale(1.08);
+  }
+  
+  @keyframes aboutSlideFromLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes aboutImageReveal {
+    from {
+      opacity: 0;
+      transform: translateX(50px) scale(1.08);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+  
+  /* Adjust menu entrance for mobile */
+  @keyframes menuCategoryReveal {
+    from {
+      opacity: 0;
+      transform: translateY(40px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
   }
 }
