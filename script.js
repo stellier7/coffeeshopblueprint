@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupNavigation();
   setupLightbox();
   setupScrollAnimations();
+  setupHeroAnimations();
 });
 
 // ============================================================
@@ -280,7 +281,7 @@ function populateFooter() {
 }
 
 // ============================================================
-// Navigation - Smooth Scroll & Mobile Menu
+// Navigation - Hide/Show on Scroll, Mobile Menu & Smooth Scroll
 // ============================================================
 function setupNavigation() {
   const navbar = document.getElementById('navbar');
@@ -288,24 +289,62 @@ function setupNavigation() {
   const navLinks = document.getElementById('nav-links');
   const navLinkItems = document.querySelectorAll('.nav-link');
   
-  // Scroll event for navbar shadow
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      navbar.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.15)';
+  // Variables for hide/show behavior
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+  const scrollThreshold = 100;
+  
+  // Optimized scroll handler with requestAnimationFrame
+  function updateNavbarOnScroll() {
+    const currentScrollY = window.scrollY;
+    
+    // Add/remove scrolled class for shadow and background
+    if (currentScrollY > 10) {
+      navbar.classList.add('scrolled');
     } else {
-      navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+      navbar.classList.remove('scrolled');
     }
-  });
+    
+    // Hide/show navbar based on scroll direction
+    if (currentScrollY > scrollThreshold) {
+      if (currentScrollY > lastScrollY && currentScrollY > scrollThreshold) {
+        // Scrolling down - hide navbar
+        navbar.classList.add('navbar-hidden');
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up - show navbar
+        navbar.classList.remove('navbar-hidden');
+      }
+    } else {
+      // At top of page - always show
+      navbar.classList.remove('navbar-hidden');
+    }
+    
+    lastScrollY = currentScrollY;
+    ticking = false;
+  }
+  
+  // Throttled scroll listener with requestAnimationFrame
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateNavbarOnScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+  
+  // Initial call
+  updateNavbarOnScroll();
   
   // Mobile menu toggle
   mobileMenuToggle.addEventListener('click', () => {
     navLinks.classList.toggle('active');
+    mobileMenuToggle.classList.toggle('active');
   });
   
   // Close mobile menu when link is clicked
   navLinkItems.forEach(link => {
     link.addEventListener('click', () => {
       navLinks.classList.remove('active');
+      mobileMenuToggle.classList.remove('active');
     });
   });
   
@@ -414,4 +453,137 @@ function setupScrollAnimations() {
   fadeElements.forEach(element => {
     observer.observe(element);
   });
+  
+  // Special observer for CTA banner section
+  const ctaBanner = document.querySelector('.cta-banner');
+  if (ctaBanner) {
+    const ctaObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('section-visible');
+        }
+      });
+    }, {
+      threshold: 0.2,
+      rootMargin: '0px 0px -100px 0px'
+    });
+    
+    ctaObserver.observe(ctaBanner);
+  }
+}
+
+// ============================================================
+// Hero Animations - Dramatic Entrance, Parallax & Scroll-Out
+// ============================================================
+function setupHeroAnimations() {
+  const hero = document.getElementById('hero');
+  const heroImage = document.getElementById('hero-image');
+  const heroContent = document.querySelector('.hero-content');
+  const heroOverlay = document.querySelector('.hero-overlay');
+  
+  // Check if user prefers reduced motion
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
+  // Trigger dramatic entrance animation on load
+  setTimeout(() => {
+    hero.classList.add('hero-animate-in');
+    
+    // Add entrance-complete class after all animations finish
+    // Longest animation is 1.1s with 0.9s delay = 2s total
+    if (!prefersReducedMotion) {
+      setTimeout(() => {
+        hero.classList.add('hero-entrance-complete');
+      }, 2100);
+    }
+  }, 100);
+  
+  // Exit early if user prefers reduced motion (skip parallax and scroll effects)
+  if (prefersReducedMotion) {
+    // Show all content immediately
+    heroImage.style.opacity = '1';
+    heroImage.style.transform = 'scale(1.1)';
+    heroOverlay.style.opacity = '1';
+    hero.classList.add('hero-entrance-complete');
+    return;
+  }
+  
+  // Variables for performance optimization
+  let ticking = false;
+  let lastScrollY = window.scrollY;
+  
+  // Parallax and scroll-out effect using requestAnimationFrame
+  function updateHeroOnScroll() {
+    const scrollY = window.scrollY;
+    const heroHeight = hero.offsetHeight;
+    const scrollProgress = Math.min(scrollY / heroHeight, 1);
+    
+    // Parallax effect - background moves slower (0.5x speed creates depth)
+    const parallaxOffset = scrollY * 0.5;
+    heroImage.style.transform = `translateY(${parallaxOffset}px) scale(1.1)`;
+    
+    // Scroll-out fade and scale effect
+    const fadeStart = 0.3;
+    const fadeProgress = Math.max((scrollProgress - fadeStart) / (1 - fadeStart), 0);
+    
+    if (scrollProgress > fadeStart) {
+      const opacity = 1 - (fadeProgress * 0.6);
+      const scale = 1 - (fadeProgress * 0.08);
+      
+      heroContent.style.opacity = opacity;
+      heroContent.style.transform = `scale(${scale}) translateY(${fadeProgress * 30}px)`;
+      heroOverlay.style.opacity = opacity;
+    } else {
+      heroContent.style.opacity = '';
+      heroContent.style.transform = '';
+      heroOverlay.style.opacity = '';
+    }
+    
+    ticking = false;
+  }
+  
+  // Optimized scroll handler with requestAnimationFrame
+  function onScroll() {
+    lastScrollY = window.scrollY;
+    
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateHeroOnScroll();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+  
+  // Throttled scroll listener for better performance
+  let scrollTimeout;
+  window.addEventListener('scroll', () => {
+    if (scrollTimeout) {
+      window.cancelAnimationFrame(scrollTimeout);
+    }
+    scrollTimeout = window.requestAnimationFrame(onScroll);
+  }, { passive: true });
+  
+  // Initial call to set up proper state
+  updateHeroOnScroll();
+  
+  // Observe hero section to optimize when it's out of view
+  const heroObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) {
+        // Hero is out of view, can skip updates
+        hero.style.willChange = 'auto';
+        heroImage.style.willChange = 'auto';
+        heroContent.style.willChange = 'auto';
+      } else {
+        // Hero is in view, optimize for transforms
+        hero.style.willChange = 'opacity, transform';
+        heroImage.style.willChange = 'transform';
+        heroContent.style.willChange = 'transform, opacity';
+      }
+    });
+  }, {
+    rootMargin: '100px 0px 100px 0px'
+  });
+  
+  heroObserver.observe(hero);
 }
