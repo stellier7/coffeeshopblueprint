@@ -275,24 +275,72 @@ function setupNavigation() {
   const navLinks = document.getElementById('nav-links');
   const navLinkItems = document.querySelectorAll('.nav-link');
   
-  // Scroll event for navbar shadow
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      navbar.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.15)';
+  // Smart scroll behavior - hide on scroll down, show on scroll up
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+  const scrollThreshold = 100; // Hide navbar after scrolling down 100px
+  const scrollUpShowThreshold = 10; // Show navbar immediately when scrolling up
+  
+  function updateNavbar() {
+    const currentScrollY = window.scrollY;
+    const scrollDifference = currentScrollY - lastScrollY;
+    
+    // Add scrolled class for shadow/background when not at top
+    if (currentScrollY > 50) {
+      navbar.classList.add('navbar--scrolled');
     } else {
-      navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+      navbar.classList.remove('navbar--scrolled');
     }
-  });
+    
+    // Don't hide navbar if mobile menu is open
+    const isMobileMenuOpen = navLinks.classList.contains('active');
+    
+    if (!isMobileMenuOpen) {
+      // Scrolling down - hide navbar after threshold
+      if (scrollDifference > 0 && currentScrollY > scrollThreshold) {
+        navbar.classList.add('navbar--hidden');
+      }
+      // Scrolling up - show navbar immediately
+      else if (scrollDifference < -scrollUpShowThreshold) {
+        navbar.classList.remove('navbar--hidden');
+      }
+      // At the very top - always show navbar
+      else if (currentScrollY < scrollThreshold) {
+        navbar.classList.remove('navbar--hidden');
+      }
+    }
+    
+    lastScrollY = currentScrollY;
+    ticking = false;
+  }
+  
+  // Use requestAnimationFrame for smooth, performant scroll handling
+  function onScroll() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateNavbar);
+      ticking = true;
+    }
+  }
+  
+  window.addEventListener('scroll', onScroll, { passive: true });
   
   // Mobile menu toggle
   mobileMenuToggle.addEventListener('click', () => {
     navLinks.classList.toggle('active');
+    // Ensure navbar is visible when opening mobile menu
+    if (navLinks.classList.contains('active')) {
+      navbar.classList.add('mobile-menu-open');
+      navbar.classList.remove('navbar--hidden');
+    } else {
+      navbar.classList.remove('mobile-menu-open');
+    }
   });
   
   // Close mobile menu when link is clicked
   navLinkItems.forEach(link => {
     link.addEventListener('click', () => {
       navLinks.classList.remove('active');
+      navbar.classList.remove('mobile-menu-open');
     });
   });
   
