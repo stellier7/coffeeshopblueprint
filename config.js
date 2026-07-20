@@ -7,139 +7,151 @@
 const SHOP = {
   // Basic Info
   name: "Oddity Coffee Roasters",
-  tagline: "Exceptionally unusual. Unusually exceptional.",
+  tagline: "Oddity siempre es buena idea. ✨",
   logoText: "OC", // Used if no logo image is provided
+  logoImage: "https://i.imgur.com/0FoCQhR.png", // Logo image
   
   // Colors - These will be applied site-wide via CSS custom properties
   colors: {
-    primary: "#1A1A2E",      // Deep midnight blue - main brand color
-    accent: "#E94560",       // Electric pink - for highlights and CTAs
-    background: "#F8F4E3",   // Warm cream
-    text: "#16213E"          // Dark navy for text
+    primary: "#3D2817",      // Rich espresso brown - main brand color
+    accent: "#D4A574",       // Warm caramel/gold - for highlights and CTAs
+    background: "#FAF7F2",   // Soft cream
+    text: "#2C1810"          // Deep coffee brown for text
   },
   
   // Typography - Google Fonts will be loaded automatically
   fonts: {
-    heading: "Space Grotesk", // Modern, quirky sans-serif for headings
-    body: "Inter"              // Clean sans-serif for body text
+    heading: "Poppins",      // Modern, friendly sans-serif for headings
+    body: "Inter"            // Clean, readable sans-serif for body text
   },
   
   // Hero Section
   hero: {
-    image: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=1920&q=80",
-    headline: "Coffee that dares to be different",
-    subheadline: "Experimental roasts. Bold flavors. Unconventional excellence.",
-    ctaText: "Explore Our Oddities",
+    image: "https://i.imgur.com/H7QpS8i.jpeg",
+    headline: "Oddity siempre es buena idea. ✨",
+    subheadline: "Abierto todos los días de 8am - 8pm",
+    ctaText: "Ver Menú",
     ctaLink: "#menu"
   },
   
   // About Section
   about: {
-    title: "The Oddity Origin",
-    text: "We're not your average coffee shop, and we're proud of it. Founded by coffee rebels who believe the best beans come from taking risks, Oddity Coffee Roasters specializes in experimental roasting techniques and rare single origins. We hunt down the most interesting beans from around the world, then push boundaries with our roasting profiles. The result? Cups that surprise, delight, and challenge everything you thought you knew about coffee.",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80"
+    title: "Café de Especialidad Desde el Origen",
+    text: "Fundado por Leonel Enrique Ortez en el corazón de Comayagua, Oddity Coffee Roasters es más que una cafetería—es una experiencia que conecta las montañas hondureñas con tu taza. Nos especializamos en cafés de especialidad con puntuaciones superiores a 85 puntos de catación, cultivados en nuestra finca y tostados con pasión. Nuestro compromiso va más allá del café excepcional: fortalecemos la cultura cafetalera hondureña desde el origen, con educación, calidad, ética y sostenibilidad. Acompañamos nuestros cafés con auténtica gastronomía hondureña que te hará sentir como en casa.",
+    image: "https://i.imgur.com/VS9xcwR.png"
   },
   
   // Menu - Organized by category
   menu: [
     {
-      category: "Signature Oddities",
+      category: "Café de Especialidad",
       items: [
-        { name: "The Midnight Anomaly", price: "6.00", desc: "Espresso with activated charcoal, vanilla, oat milk" },
-        { name: "Lavender Lightning", price: "5.50", desc: "Double shot, house lavender syrup, sparkling water" },
-        { name: "Citrus Paradox", price: "5.75", desc: "Cold brew, orange zest, cardamom, tonic" },
-        { name: "Maple Smoke", price: "6.50", desc: "Smoked maple latte with sea salt foam" }
+        { name: "Espresso Hondureño", price: "60", desc: "Shot de nuestro café de finca, tostado en casa" },
+        { name: "Cappuccino Clásico", price: "75", desc: "Espresso cremoso con leche vaporizada perfecta" },
+        { name: "Latte Artesanal", price: "80", desc: "Suave y balanceado, con arte latte" },
+        { name: "Americano Puro", price: "65", desc: "Espresso alargado, sabor intenso" },
+        { name: "Mocha Oddity", price: "90", desc: "Chocolate hondureño, espresso y crema" },
+        { name: "Café Frío", price: "85", desc: "Cold brew de 18 horas, suave y aromático" }
       ]
     },
     {
-      category: "Classic Reimagined",
+      category: "Desayuno Típico Hondureño",
       items: [
-        { name: "The Rebel Cappuccino", price: "5.00", desc: "Traditional cap with house-roasted experimental blend" },
-        { name: "Flat White 2.0", price: "5.25", desc: "Oat milk microfoam, house espresso blend" },
-        { name: "Cortado Obscura", price: "4.50", desc: "Dark roast espresso, steamed milk, perfect balance" },
-        { name: "Oddity Latte", price: "5.50", desc: "Your choice of milk with our signature blend" }
+        { name: "Baleada Tradicional", price: "50", desc: "Tortilla de harina con frijoles, queso, crema y huevo" },
+        { name: "Burrita Comayaguense", price: "65", desc: "Especialidad local, rellena de frijoles y queso" },
+        { name: "Huevos al Gusto", price: "70", desc: "Preparados como prefieras, con acompañantes" },
+        { name: "Desayuno Completo", price: "120", desc: "Baleada, huevos, plátano frito, aguacate y café" }
       ]
     },
     {
-      category: "Cold Concoctions",
+      category: "Brunch Internacional",
       items: [
-        { name: "Nitro Noir", price: "6.00", desc: "Nitrogen-infused cold brew, cascading perfection" },
-        { name: "Iced Unicorn", price: "6.50", desc: "Butterfly pea flower, espresso, coconut milk" },
-        { name: "Flash Brew", price: "5.50", desc: "Japanese iced coffee, bright and complex" },
-        { name: "Cold Snap", price: "5.00", desc: "Classic cold brew, 18-hour steep" }
+        { name: "Waffles Belgas", price: "95", desc: "Dorados y esponjosos, con miel y fruta fresca" },
+        { name: "Croissant Artesanal", price: "55", desc: "Hojaldrado y mantequilloso, recién horneado" },
+        { name: "Tostadas Francesas", price: "85", desc: "Pan brioche caramelizado con canela" },
+        { name: "Avocado Toast", price: "90", desc: "Pan integral, aguacate fresco, huevo pochado" }
       ]
     },
     {
-      category: "Strange Snacks",
+      category: "Comida & Snacks",
       items: [
-        { name: "Black Sesame Croissant", price: "5.00", desc: "Buttery layers with black sesame paste" },
-        { name: "Matcha Cardamom Muffin", price: "4.50", desc: "Unexpected flavor combo, surprisingly perfect" },
-        { name: "Tahini Chocolate Chip Cookie", price: "4.00", desc: "Chewy, nutty, ridiculously good" },
-        { name: "Mystery Pastry", price: "4.50", desc: "Chef's choice, always interesting" }
+        { name: "Hamburguesa Oddity", price: "130", desc: "Carne artesanal, queso, vegetales frescos" },
+        { name: "Club Sandwich", price: "110", desc: "Pollo, tocino, aguacate, pan tostado" },
+        { name: "Panini Caprese", price: "95", desc: "Mozzarella, tomate, albahaca, balsámico" },
+        { name: "Ensalada César", price: "85", desc: "Lechuga romana, crutones, parmesano" }
+      ]
+    },
+    {
+      category: "Postres & Dulces",
+      items: [
+        { name: "Cheesecake del Día", price: "70", desc: "Cremoso y delicioso, pregunta por el sabor" },
+        { name: "Brownie con Café", price: "65", desc: "Chocolate intenso con notas de nuestro café" },
+        { name: "Pie de Limón", price: "60", desc: "Refrescante y perfecto con café" },
+        { name: "Cookie Artesanal", price: "40", desc: "Recién horneada, varios sabores disponibles" }
       ]
     }
   ],
   
   // Gallery - Image URLs
   gallery: [
+    "https://i.imgur.com/pZX0I4L.jpeg",
+    "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&q=80",
     "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80",
     "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80",
     "https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=600&q=80",
-    "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80",
-    "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&q=80",
-    "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=80"
+    "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80"
   ],
   
   // Hours
   hours: {
-    monday: "6:30 AM - 7:00 PM",
-    tuesday: "6:30 AM - 7:00 PM",
-    wednesday: "6:30 AM - 7:00 PM",
-    thursday: "6:30 AM - 7:00 PM",
-    friday: "6:30 AM - 9:00 PM",
-    saturday: "7:00 AM - 9:00 PM",
-    sunday: "7:00 AM - 6:00 PM"
+    monday: "8:00 AM - 8:00 PM",
+    tuesday: "8:00 AM - 8:00 PM",
+    wednesday: "8:00 AM - 8:00 PM",
+    thursday: "8:00 AM - 8:00 PM",
+    friday: "8:00 AM - 8:00 PM",
+    saturday: "8:00 AM - 8:00 PM",
+    sunday: "8:00 AM - 8:00 PM"
   },
   
   // Location & Contact
-  address: "456 Bohemian Avenue, Portland, OR 97214",
-  phone: "(555) ODD-CAFE",
+  address: "Plaza 0301, Bulevar Roberto Romero Larios, Comayagua, Honduras 12101",
+  phone: "+504 3249-4530",
   email: "hello@odditycoffee.com",
   
   // Social Media
   social: {
-    instagram: "https://instagram.com/odditycoffeeroasters",
-    facebook: "https://facebook.com/odditycoffeeroasters"
+    instagram: "https://www.instagram.com/odditycoffeeroasters/",
+    facebook: "https://www.facebook.com/OddityCoffeeRoasters/"
   },
   
   // Google Maps Embed URL
   // Get this from: google.com/maps → Search location → Share → Embed a map
-  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.9604740583894!2d-89.65037708459394!3d39.78172997944751!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDQ2JzU0LjIiTiA4OcKwMzgnNTQuMCJX!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus",
+  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3865.6892847665254!2d-87.63286708523442!3d14.449457189881995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6585113810381b%3A0x5cfc9b3f63f4f66c!2sOddity%20Coffee%20Roasters!5e0!3m2!1sen!2sus!4v1721480000000!5m2!1sen!2sus",
   
   // Testimonials
   testimonials: [
     {
-      quote: "I thought I knew coffee until I tried the Midnight Anomaly. This place doesn't just serve drinks—they create experiences. Absolutely mind-blowing.",
-      author: "Alex K.",
-      role: "Coffee Explorer"
+      quote: "Wonderful cafe! Coffee was excellent, and it was our first time having Honduran food and we were blown away! I got the burrita Comayaguense and it was delicious. My husband got the baleada and it was fantastic. Would come back again in a heartbeat!",
+      author: "Elena Kalahar",
+      role: "Google Reviewer"
     },
     {
-      quote: "Finally, a coffee shop that isn't afraid to be weird! The experimental roasts are incredible and the vibe is perfectly imperfect. My new favorite spot.",
-      author: "Jordan P.",
-      role: "Creative Regular"
+      quote: "Wow, this place is special. The coffee is exceptional—smooth taste yet still aromatic and full bodied. The quality of the facilities is top rated, the owners have done a great job. Comfortable and inviting. The workers are quick, accurate, and prepare the coffees with skill and care. Don't overlook the food and desserts!",
+      author: "Harold Bruce",
+      role: "Coffee Enthusiast"
     },
     {
-      quote: "The Mystery Pastry is always a gamble and always amazing. These folks understand that the best things in life are a little odd.",
-      author: "Sam L.",
-      role: "Risk Taker"
+      quote: "Great service, delicious food and flavorful coffee! Look forward to my return trip.",
+      author: "Lineus Davis",
+      role: "Regular Customer"
     }
   ],
   
   // CTA Banner
   ctaBanner: {
-    headline: "Embrace the oddity",
-    subheadline: "Come taste what makes us different",
-    buttonText: "Find Us",
+    headline: "Ven a probar la diferencia",
+    subheadline: "Café excepcional y auténtica comida hondureña te esperan",
+    buttonText: "Cómo Llegar",
     buttonLink: "#location"
   }
 };
