@@ -29,7 +29,7 @@ const SHOP = {
   // Hero Section
   hero: {
     image: "https://i.imgur.com/H7QpS8i.jpeg",
-    headline: "Oddity siempre es buena idea. ✨",
+    headline: "Oddity siempre es<br>una buena idea.&nbsp;✨",
     subheadline: "Abierto todos los días de 8am - 8pm",
     ctaText: "Ver Menú",
     ctaLink: "#menu"

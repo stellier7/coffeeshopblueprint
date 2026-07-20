@@ -105,9 +105,8 @@ function populateHero() {
   
   heroImage.style.backgroundImage = `url('${SHOP.hero.image}')`;
   
-  // Keep emoji on same line by using non-breaking space
-  const headlineText = SHOP.hero.headline.replace(/\.\s*✨/g, '.&nbsp;✨');
-  heroHeadline.innerHTML = headlineText;
+  // Use innerHTML to support line breaks and formatting
+  heroHeadline.innerHTML = SHOP.hero.headline;
   
   heroSubheadline.textContent = SHOP.hero.subheadline;
   heroCTA.textContent = SHOP.hero.ctaText;
