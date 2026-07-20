@@ -545,14 +545,20 @@ p {
   color: var(--white);
   max-width: 900px;
   padding: 2rem;
+  padding-top: 6rem;
   will-change: transform, opacity;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 3rem;
 }
 
 .hero-logo {
-  margin-bottom: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: -2rem;
 }
 
 .hero-logo-image {
@@ -579,7 +585,7 @@ p {
 }
 
 .hero-headline {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   color: var(--white);
   text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.4);
   opacity: 0;
@@ -1921,8 +1927,17 @@ p {
   
   /* Hero logo responsive sizing */
   .hero-logo-image {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
+  }
+  
+  .hero-content {
+    padding-top: 4rem;
+    gap: 2rem;
+  }
+  
+  .hero-logo {
+    margin-top: -1rem;
   }
   
   /* Adjust hero entrance travel distance for mobile */
