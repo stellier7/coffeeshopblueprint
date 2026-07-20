@@ -89,11 +89,22 @@ function populateNavigation() {
 // ============================================================
 function populateHero() {
   const heroImage = document.getElementById('hero-image');
+  const heroLogo = document.getElementById('hero-logo');
   const heroHeadline = document.getElementById('hero-headline');
   const heroSubheadline = document.getElementById('hero-subheadline');
   const heroCTA = document.getElementById('hero-cta');
   
   heroImage.style.backgroundImage = `url('${SHOP.hero.image}')`;
+  
+  // Add logo to hero if logoImage exists
+  if (SHOP.logoImage && SHOP.logoImage.trim() !== '') {
+    const heroLogoImg = document.createElement('img');
+    heroLogoImg.src = SHOP.logoImage;
+    heroLogoImg.alt = SHOP.name + ' Logo';
+    heroLogoImg.className = 'hero-logo-image';
+    heroLogo.appendChild(heroLogoImg);
+  }
+  
   heroHeadline.textContent = SHOP.hero.headline;
   heroSubheadline.textContent = SHOP.hero.subheadline;
   heroCTA.textContent = SHOP.hero.ctaText;

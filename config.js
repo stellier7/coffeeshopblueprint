@@ -8,7 +8,7 @@ const SHOP = {
   // Basic Info
   name: "CALA Coffee Roasters",
   tagline: "Somos una nueva experiencia en café, te esperamos.",
-  logoImage: "", // URL to your logo image - leave empty to use logoText instead
+  logoImage: "https://i.imgur.com/sUBrS40.png", // URL to your logo image - leave empty to use logoText instead
   logoText: "CALA", // Used if no logo image is provided
   
   // Colors - These will be applied site-wide via CSS custom properties
