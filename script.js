@@ -89,11 +89,12 @@ function populateNavigation() {
     logoImg.style.objectFit = 'cover';
     logoImg.style.marginRight = '12px';
     
-    // Create text element for "Oddity"
+    // Create text element for "Oddity" with hero script font
     const logoTextSpan = document.createElement('span');
     logoTextSpan.textContent = 'Oddity';
-    logoTextSpan.style.fontWeight = '600';
-    logoTextSpan.style.fontSize = '1.25rem';
+    logoTextSpan.style.fontFamily = `'${SHOP.fonts.heroScript}', cursive`;
+    logoTextSpan.style.fontWeight = '400';
+    logoTextSpan.style.fontSize = '1.5rem';
     
     logoText.innerHTML = '';
     logoText.style.display = 'flex';
