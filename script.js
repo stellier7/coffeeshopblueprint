@@ -87,8 +87,19 @@ function populateNavigation() {
     logoImg.style.width = '40px';
     logoImg.style.borderRadius = '50%';
     logoImg.style.objectFit = 'cover';
+    logoImg.style.marginRight = '12px';
+    
+    // Create text element for "Oddity"
+    const logoTextSpan = document.createElement('span');
+    logoTextSpan.textContent = 'Oddity';
+    logoTextSpan.style.fontWeight = '600';
+    logoTextSpan.style.fontSize = '1.25rem';
+    
     logoText.innerHTML = '';
+    logoText.style.display = 'flex';
+    logoText.style.alignItems = 'center';
     logoText.appendChild(logoImg);
+    logoText.appendChild(logoTextSpan);
   } else {
     logoText.textContent = SHOP.name;
   }
