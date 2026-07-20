@@ -22,7 +22,8 @@ const SHOP = {
   // Typography - Google Fonts will be loaded automatically
   fonts: {
     heading: "Poppins",      // Modern, friendly sans-serif for headings
-    body: "Inter"            // Clean, readable sans-serif for body text
+    body: "Inter",           // Clean, readable sans-serif for body text
+    heroScript: "Kaushan Script"  // Handwritten script for hero headline
   },
   
   // Hero Section

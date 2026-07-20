@@ -56,8 +56,19 @@ function loadFonts() {
   // Load fonts from Google Fonts
   const headingFont = SHOP.fonts.heading.replace(/ /g, '+');
   const bodyFont = SHOP.fonts.body.replace(/ /g, '+');
+  const heroScriptFont = SHOP.fonts.heroScript ? SHOP.fonts.heroScript.replace(/ /g, '+') : '';
+  
   const fontLink = document.getElementById('google-fonts-link');
-  fontLink.href = `https://fonts.googleapis.com/css2?family=${headingFont}:wght@400;700&family=${bodyFont}:wght@400;500;600;700&display=swap`;
+  let fontUrl = `https://fonts.googleapis.com/css2?family=${headingFont}:wght@400;700&family=${bodyFont}:wght@400;500;600;700`;
+  
+  // Add hero script font if defined
+  if (heroScriptFont) {
+    fontUrl += `&family=${heroScriptFont}:wght@400;700`;
+    root.style.setProperty('--font-hero-script', `'${SHOP.fonts.heroScript}', cursive`);
+  }
+  
+  fontUrl += '&display=swap';
+  fontLink.href = fontUrl;
 }
 
 // ============================================================

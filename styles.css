@@ -537,10 +537,13 @@ p {
 
 .hero-headline {
   margin-bottom: 1rem;
-  color: var(--white);
-  text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.4);
+  color: #FFD700;
+  font-family: var(--font-hero-script, var(--font-heading));
+  font-weight: 400;
+  text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.3);
   opacity: 0;
   transform: translateX(-100px);
+  letter-spacing: 0.02em;
 }
 
 .hero-subheadline {
