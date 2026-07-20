@@ -82,7 +82,6 @@ const SHOP = {
   gallery: [
     "https://i.imgur.com/sV9Ovev.jpg",
     "https://i.imgur.com/aDDhqAW.jpg",
-    "https://i.imgur.com/j2cL5NI.jpg",
     "https://i.imgur.com/zQF0BSy.jpg",
     "https://i.imgur.com/qIt5miW.jpg",
     "https://i.imgur.com/J1aQOiD.jpg",
