@@ -315,20 +315,6 @@ p {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Update logo and links color for better contrast on coffee background */
-.navbar.scrolled .logo-text,
-.navbar.scrolled .nav-link {
-  color: var(--white);
-}
-
-.navbar.scrolled .nav-link::after {
-  background-color: var(--accent);
-}
-
-.navbar.scrolled .mobile-menu-toggle span {
-  background-color: var(--white);
-}
-
 /* Hide navbar on scroll down */
 .navbar.navbar-hidden {
   transform: translateY(-100%);
@@ -355,7 +341,7 @@ p {
   font-family: var(--font-heading);
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--primary);
+  color: var(--white);
   transition: var(--transition-fast);
 }
 
@@ -372,7 +358,7 @@ p {
 }
 
 .nav-link {
-  color: var(--text);
+  color: var(--white);
   font-weight: 500;
   position: relative;
   padding: 0.5rem 0;
@@ -422,7 +408,7 @@ p {
 .mobile-menu-toggle span {
   width: 25px;
   height: 3px;
-  background-color: var(--primary);
+  background-color: var(--white);
   border-radius: 3px;
   transition: var(--transition);
   transform-origin: center;
@@ -1441,7 +1427,7 @@ p {
     top: 100%;
     left: 0;
     right: 0;
-    background-color: rgba(250, 246, 241, 0.98);
+    background-color: rgba(74, 44, 42, 0.98);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     flex-direction: column;
@@ -1455,19 +1441,6 @@ p {
                 opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     max-height: calc(100vh - 80px);
     overflow-y: auto;
-  }
-  
-  /* Mobile menu background when navbar is scrolled */
-  .navbar.scrolled .nav-links {
-    background-color: rgba(74, 44, 42, 0.98);
-  }
-  
-  .navbar.scrolled .nav-links .nav-link {
-    color: var(--white);
-  }
-  
-  .navbar.scrolled .nav-links .nav-link:hover {
-    background-color: rgba(201, 162, 39, 0.15);
   }
   
   .nav-links.active {
@@ -1498,7 +1471,7 @@ p {
   }
   
   .nav-link:hover {
-    background-color: rgba(201, 162, 39, 0.05);
+    background-color: rgba(201, 162, 39, 0.15);
     padding-left: 1rem;
   }
   
