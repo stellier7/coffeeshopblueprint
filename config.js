@@ -96,9 +96,9 @@ const SHOP = {
   // Gallery - Image URLs
   gallery: [
     "https://i.imgur.com/pZX0I4L.jpeg",
-    "https://i.imgur.com/99Tfqym.jpg",
-    "https://i.imgur.com/nqNNabR.jpg",
     "https://i.imgur.com/mlkQXWH.jpg",
+    "https://i.imgur.com/nqNNabR.jpg",
+    "https://i.imgur.com/99Tfqym.jpg",
     "https://i.imgur.com/jftBzhr.jpg",
     "https://i.imgur.com/QtGV0AR.jpg"
   ],
