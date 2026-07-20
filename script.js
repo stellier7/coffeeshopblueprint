@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupNavigation();
   setupLightbox();
   setupScrollAnimations();
+  setupHeroAnimations();
 });
 
 // ============================================================
@@ -401,4 +402,107 @@ function setupScrollAnimations() {
   fadeElements.forEach(element => {
     observer.observe(element);
   });
+}
+
+// ============================================================
+// Hero Animations - Entrance, Parallax & Scroll-Out Effects
+// ============================================================
+function setupHeroAnimations() {
+  const hero = document.getElementById('hero');
+  const heroImage = document.getElementById('hero-image');
+  const heroContent = document.querySelector('.hero-content');
+  const heroOverlay = document.querySelector('.hero-overlay');
+  
+  // Check if user prefers reduced motion
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
+  // Trigger entrance animation on load
+  setTimeout(() => {
+    hero.classList.add('hero-animate-in');
+  }, 100);
+  
+  // Exit early if user prefers reduced motion
+  if (prefersReducedMotion) {
+    return;
+  }
+  
+  // Variables for performance optimization
+  let ticking = false;
+  let lastScrollY = window.scrollY;
+  
+  // Parallax and scroll-out effect using requestAnimationFrame
+  function updateHeroOnScroll() {
+    const scrollY = window.scrollY;
+    const heroHeight = hero.offsetHeight;
+    const scrollProgress = Math.min(scrollY / heroHeight, 1);
+    
+    // Parallax effect - background moves slower (0.5x speed creates depth)
+    const parallaxOffset = scrollY * 0.5;
+    heroImage.style.transform = `translateY(${parallaxOffset}px) scale(1.1)`;
+    
+    // Scroll-out fade and scale effect
+    const fadeStart = 0.3;
+    const fadeProgress = Math.max((scrollProgress - fadeStart) / (1 - fadeStart), 0);
+    
+    if (scrollProgress > fadeStart) {
+      const opacity = 1 - (fadeProgress * 0.6);
+      const scale = 1 - (fadeProgress * 0.08);
+      
+      heroContent.style.opacity = opacity;
+      heroContent.style.transform = `scale(${scale}) translateY(${fadeProgress * 30}px)`;
+      heroOverlay.style.opacity = opacity;
+    } else {
+      heroContent.style.opacity = '';
+      heroContent.style.transform = '';
+      heroOverlay.style.opacity = '';
+    }
+    
+    ticking = false;
+  }
+  
+  // Optimized scroll handler with requestAnimationFrame
+  function onScroll() {
+    lastScrollY = window.scrollY;
+    
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        updateHeroOnScroll();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+  
+  // Throttled scroll listener for better performance
+  let scrollTimeout;
+  window.addEventListener('scroll', () => {
+    if (scrollTimeout) {
+      window.cancelAnimationFrame(scrollTimeout);
+    }
+    scrollTimeout = window.requestAnimationFrame(onScroll);
+  }, { passive: true });
+  
+  // Initial call to set up proper state
+  updateHeroOnScroll();
+  
+  // Observe hero section to optimize when it's out of view
+  const heroObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) {
+        // Hero is out of view, can skip updates
+        hero.style.willChange = 'auto';
+        heroImage.style.willChange = 'auto';
+        heroContent.style.willChange = 'auto';
+      } else {
+        // Hero is in view, optimize for transforms
+        hero.style.willChange = 'opacity, transform';
+        heroImage.style.willChange = 'transform';
+        heroContent.style.willChange = 'transform, opacity';
+      }
+    });
+  }, {
+    rootMargin: '100px 0px 100px 0px'
+  });
+  
+  heroObserver.observe(hero);
 }

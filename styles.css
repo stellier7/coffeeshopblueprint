@@ -100,6 +100,24 @@ button:focus-visible {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+  
+  /* Override hero parallax and float for reduced motion */
+  .hero-image,
+  .hero-content,
+  .hero-overlay {
+    will-change: auto !important;
+  }
+  
+  .hero-animate-in .hero-content {
+    animation: none !important;
+  }
+  
+  /* Keep entrance animations instant but visible */
+  .hero-animate-in .hero-headline,
+  .hero-animate-in .hero-subheadline,
+  .hero-animate-in .hero-content .btn {
+    animation-duration: 0.01ms !important;
+  }
 }
 
 /* ============================================================
@@ -360,7 +378,7 @@ p {
 }
 
 /* ============================================================
-   Hero Section
+   Hero Section - Enhanced with Parallax & Animations
    ============================================================ */
 .hero {
   position: relative;
@@ -370,6 +388,7 @@ p {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  will-change: opacity, transform;
 }
 
 .hero-image {
@@ -377,21 +396,11 @@ p {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 110%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   will-change: transform;
-  animation: subtleZoom 20s ease-in-out infinite alternate;
-}
-
-@keyframes subtleZoom {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.05);
-  }
 }
 
 .hero-overlay {
@@ -406,6 +415,7 @@ p {
     rgba(74, 44, 42, 0.5) 50%,
     rgba(74, 44, 42, 0.35) 100%
   );
+  will-change: opacity;
 }
 
 .hero-content {
@@ -415,29 +425,44 @@ p {
   color: var(--white);
   max-width: 900px;
   padding: 2rem;
-  animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
 }
 
 .hero-headline {
   margin-bottom: 1rem;
   color: var(--white);
   text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.4);
-  animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+  opacity: 0;
+  transform: translateY(40px);
 }
 
 .hero-subheadline {
   font-size: clamp(1.125rem, 2.5vw, 1.5rem);
   margin-bottom: 2.5rem;
-  opacity: 0.95;
+  opacity: 0;
   text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
-  animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.4s both;
+  transform: translateY(40px);
 }
 
 .hero-content .btn {
-  animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.6s both;
+  opacity: 0;
+  transform: translateY(40px);
 }
 
-@keyframes fadeInUp {
+/* Enhanced entrance animations with custom cubic bezier */
+.hero-animate-in .hero-headline {
+  animation: heroFadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+.hero-animate-in .hero-subheadline {
+  animation: heroFadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+
+.hero-animate-in .hero-content .btn {
+  animation: heroFadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+@keyframes heroFadeInUp {
   from {
     opacity: 0;
     transform: translateY(40px);
@@ -446,6 +471,36 @@ p {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Subtle idle float animation on hero content */
+.hero-animate-in .hero-content {
+  animation: subtleFloat 6s ease-in-out 1s infinite;
+}
+
+@keyframes subtleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Enhanced CTA button micro-interactions */
+.hero-content .btn-primary {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.hero-content .btn-primary:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25), 0 0 20px rgba(201, 162, 39, 0.4);
+}
+
+.hero-content .btn-primary:active {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* ============================================================
