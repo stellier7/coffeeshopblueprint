@@ -268,7 +268,7 @@ function populateFooter() {
 }
 
 // ============================================================
-// Navigation - Smooth Scroll & Mobile Menu
+// Navigation - Hide/Show on Scroll, Mobile Menu & Smooth Scroll
 // ============================================================
 function setupNavigation() {
   const navbar = document.getElementById('navbar');
@@ -276,24 +276,62 @@ function setupNavigation() {
   const navLinks = document.getElementById('nav-links');
   const navLinkItems = document.querySelectorAll('.nav-link');
   
-  // Scroll event for navbar shadow
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      navbar.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.15)';
+  // Variables for hide/show behavior
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+  const scrollThreshold = 100;
+  
+  // Optimized scroll handler with requestAnimationFrame
+  function updateNavbarOnScroll() {
+    const currentScrollY = window.scrollY;
+    
+    // Add/remove scrolled class for shadow and background
+    if (currentScrollY > 10) {
+      navbar.classList.add('scrolled');
     } else {
-      navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+      navbar.classList.remove('scrolled');
     }
-  });
+    
+    // Hide/show navbar based on scroll direction
+    if (currentScrollY > scrollThreshold) {
+      if (currentScrollY > lastScrollY && currentScrollY > scrollThreshold) {
+        // Scrolling down - hide navbar
+        navbar.classList.add('navbar-hidden');
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up - show navbar
+        navbar.classList.remove('navbar-hidden');
+      }
+    } else {
+      // At top of page - always show
+      navbar.classList.remove('navbar-hidden');
+    }
+    
+    lastScrollY = currentScrollY;
+    ticking = false;
+  }
+  
+  // Throttled scroll listener with requestAnimationFrame
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateNavbarOnScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+  
+  // Initial call
+  updateNavbarOnScroll();
   
   // Mobile menu toggle
   mobileMenuToggle.addEventListener('click', () => {
     navLinks.classList.toggle('active');
+    mobileMenuToggle.classList.toggle('active');
   });
   
   // Close mobile menu when link is clicked
   navLinkItems.forEach(link => {
     link.addEventListener('click', () => {
       navLinks.classList.remove('active');
+      mobileMenuToggle.classList.remove('active');
     });
   });
   
@@ -405,7 +443,7 @@ function setupScrollAnimations() {
 }
 
 // ============================================================
-// Hero Animations - Entrance, Parallax & Scroll-Out Effects
+// Hero Animations - Dramatic Entrance, Parallax & Scroll-Out
 // ============================================================
 function setupHeroAnimations() {
   const hero = document.getElementById('hero');
@@ -416,13 +454,26 @@ function setupHeroAnimations() {
   // Check if user prefers reduced motion
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   
-  // Trigger entrance animation on load
+  // Trigger dramatic entrance animation on load
   setTimeout(() => {
     hero.classList.add('hero-animate-in');
+    
+    // Add entrance-complete class after all animations finish
+    // Longest animation is 1.1s with 0.9s delay = 2s total
+    if (!prefersReducedMotion) {
+      setTimeout(() => {
+        hero.classList.add('hero-entrance-complete');
+      }, 2100);
+    }
   }, 100);
   
-  // Exit early if user prefers reduced motion
+  // Exit early if user prefers reduced motion (skip parallax and scroll effects)
   if (prefersReducedMotion) {
+    // Show all content immediately
+    heroImage.style.opacity = '1';
+    heroImage.style.transform = 'scale(1.1)';
+    heroOverlay.style.opacity = '1';
+    hero.classList.add('hero-entrance-complete');
     return;
   }
   
