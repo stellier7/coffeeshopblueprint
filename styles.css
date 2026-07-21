@@ -1965,6 +1965,12 @@ p {
     max-width: 100%;
   }
   
+  .hero-image {
+    background-size: 100% auto;
+    background-position: center center;
+    transform: scale(1.05);
+  }
+  
   .btn {
     width: 100%;
     max-width: 300px;
@@ -2008,6 +2014,13 @@ p {
     width: 100%;
     max-width: 100%;
     padding: 1rem;
+  }
+  
+  .hero-image {
+    background-size: 100% auto;
+    background-position: center center;
+    transform: scale(1.05);
+    height: 100%;
   }
   
   .gallery-grid {
