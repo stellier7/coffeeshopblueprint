@@ -8,8 +8,8 @@ const SHOP = {
   // Basic Info
   name: "Oh! Café",
   tagline: "Ven a probar nuestras deliciosas tapas acompañada de un buen cafecito!",
-  logoText: "OH", // Used if no logo image is provided
-  logoImage: "https://i.imgur.com/Fy5eE5L.png", // Logo image URL (update with direct link)
+  logoText: "OH!", // Used if no logo image is provided
+  logoImage: "", // Leave empty to use text logo, or add direct image URL when available
   
   // Colors - Colonial aesthetic for Comayagua
   colors: {
@@ -27,7 +27,7 @@ const SHOP = {
   
   // Hero Section
   hero: {
-    image: "https://i.imgur.com/wyEvzH1.jpg", // Update with direct Imgur link
+    image: "https://images.unsplash.com/photo-1559305616-3fc02389726d?w=1920&q=80", // Colonial coffee shop exterior
     headline: "Café de Especialidad en Comayagua",
     subheadline: "Donde nuestros baristas se comprometen a enamorarte",
     ctaText: "Ver Menú",
@@ -38,7 +38,7 @@ const SHOP = {
   about: {
     title: "Nuestra Historia",
     text: "Somos una Tienda de Café de Especialidad en el corazón colonial de Comayagua, donde nuestros baristas se comprometen a enamorarte. Ubicados en el hermoso Paseo Alameda, ofrecemos una experiencia única combinando café artesanal de alta calidad con deliciosas tapas y postres. Endulzamos nuestras bebidas con rapadura de dulce y chocolate, un toque tradicional que hace cada taza especial. ¡Ven y descubre por qué somos el lugar favorito de la comunidad!",
-    image: "https://i.imgur.com/Wq6jnKo.jpg" // Tapas picture - update with direct link
+    image: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=800&q=80" // Food/tapas style
   },
   
   // Menu - Organized by category (Spanish)
@@ -81,14 +81,14 @@ const SHOP = {
     }
   ],
   
-  // Gallery - Image URLs (Update these with direct Imgur links)
+  // Gallery - High-quality placeholder images (Replace with Oh! Café photos when available)
   gallery: [
-    "https://i.imgur.com/Wq6jnKo.jpg",  // Tapas
-    "https://i.imgur.com/iEopj64.jpg",  // Coffee cup
-    "https://i.imgur.com/tWjjC7p.jpg",  // Coffee drink
-    "https://i.imgur.com/wpQWkVo.jpg",  // Crepe
-    "https://i.imgur.com/SwvvSBl.jpg",  // Oreo Frappe
-    "https://i.imgur.com/wyEvzH1.jpg"   // Outside terrace/view
+    "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=600&q=80",  // Appetizers/tapas
+    "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80",  // Coffee cup
+    "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80",  // Iced coffee drink
+    "https://images.unsplash.com/photo-1519676867240-f03562e64548?w=600&q=80",  // Crepes
+    "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80",  // Frappe/milkshake
+    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80"   // Coffee shop interior
   ],
   
   // Hours
