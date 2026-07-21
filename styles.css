@@ -716,8 +716,8 @@ p {
    ============================================================ */
 .about {
   position: relative;
-  background-color: var(--white);
-  margin-top: 100vh;
+  background-color: #F5E6D8;
+  margin-top: 80vh;
   z-index: 2;
   width: 100%;
   overflow: hidden;
@@ -1867,6 +1867,10 @@ p {
   }
   
   /* Ensure about section is centered on mobile */
+  .about {
+    margin-top: 70vh;
+  }
+  
   .about-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
@@ -2090,6 +2094,11 @@ p {
       opacity: 1;
       transform: translateX(0);
     }
+  }
+  
+  /* Adjust about section for mobile */
+  .about {
+    margin-top: 60vh;
   }
   
   /* Adjust about section travel distance for mobile */
