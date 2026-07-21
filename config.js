@@ -27,7 +27,7 @@ const SHOP = {
   
   // Hero Section
   hero: {
-    image: "https://images.unsplash.com/photo-1559305616-3fc02389726d?w=1920&q=80", // Colonial coffee shop exterior
+    image: "images/hero.jpg", // Oh! Café exterior/terrace
     headline: "Café de Especialidad en Comayagua",
     subheadline: "Donde nuestros baristas se comprometen a enamorarte",
     ctaText: "Ver Menú",
@@ -38,7 +38,7 @@ const SHOP = {
   about: {
     title: "Nuestra Historia",
     text: "Somos una Tienda de Café de Especialidad en el corazón colonial de Comayagua, donde nuestros baristas se comprometen a enamorarte. Ubicados en el hermoso Paseo Alameda, ofrecemos una experiencia única combinando café artesanal de alta calidad con deliciosas tapas y postres. Endulzamos nuestras bebidas con rapadura de dulce y chocolate, un toque tradicional que hace cada taza especial. ¡Ven y descubre por qué somos el lugar favorito de la comunidad!",
-    image: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=800&q=80" // Food/tapas style
+    image: "images/about.jpg" // Coffee cup with Oh! Café branding
   },
   
   // Menu - Organized by category (Spanish)
@@ -81,14 +81,14 @@ const SHOP = {
     }
   ],
   
-  // Gallery - High-quality placeholder images (Replace with Oh! Café photos when available)
+  // Gallery - Real Oh! Café photos
   gallery: [
-    "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=600&q=80",  // Appetizers/tapas
-    "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80",  // Coffee cup
-    "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80",  // Iced coffee drink
-    "https://images.unsplash.com/photo-1519676867240-f03562e64548?w=600&q=80",  // Crepes
-    "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80",  // Frappe/milkshake
-    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80"   // Coffee shop interior
+    "images/gallery1.jpg",  // Coffee drink
+    "images/gallery2.jpg",  // Tapas
+    "images/gallery3.jpg",  // Crepe
+    "images/gallery4.jpg",  // Oreo Frappe
+    "images/gallery5.jpg",  // Additional Oh! Café photo
+    "images/hero.jpg"       // Exterior/terrace view
   ],
   
   // Hours
@@ -120,19 +120,19 @@ const SHOP = {
   // Testimonials
   testimonials: [
     {
-      quote: "El mejor café de Comayagua! El ambiente es acogedor y las tapas son deliciosas. Siempre vuelvo por más.",
-      author: "María González",
-      role: "Cliente Frecuente"
+      quote: "The coffee here is great, with a rich, robust flavor that truly stands out, whether you prefer a classic espresso or a creamy latte, each cup is brewed to perfection. Oh! Cafe is a must-visit for anyone who appreciates good coffee.",
+      author: "Fernando Revilla",
+      role: "Local Guide"
     },
     {
-      quote: "Me encanta la atención personalizada y la calidad del café. Los baristas realmente saben lo que hacen. El frappé de caramelo es mi favorito!",
-      author: "Carlos Mejía",
-      role: "Amante del Café"
+      quote: "El mejor café de Comayagua! El ambiente bajo el árbol en el Paseo Alameda es increíble. Las tapas son deliciosas y el servicio es excelente.",
+      author: "Cliente Frecuente",
+      role: "Google Reviews"
     },
     {
-      quote: "Un lugar perfecto para relajarse y disfrutar de un buen café. La ubicación en el Paseo Alameda es hermosa y el servicio excelente.",
-      author: "Ana Rodríguez",
-      role: "Visitante Regular"
+      quote: "Un lugar hermoso para disfrutar un buen café. La calidad es excepcional y los baristas son muy amables. Recomiendo el frappé de caramelo!",
+      author: "Visitante Regular",
+      role: "Facebook"
     }
   ],
   
