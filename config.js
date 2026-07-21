@@ -6,140 +6,141 @@
 
 const SHOP = {
   // Basic Info
-  name: "Roasted Roots Coffee Co.",
-  tagline: "Small batch. Big heart.",
-  logoText: "RR", // Used if no logo image is provided
+  name: "Oh! Café",
+  tagline: "Ven a probar nuestras deliciosas tapas acompañada de un buen cafecito!",
+  logoText: "OH", // Used if no logo image is provided
+  logoImage: "https://i.imgur.com/Fy5eE5L.png", // Logo image URL (update with direct link)
   
-  // Colors - These will be applied site-wide via CSS custom properties
+  // Colors - Colonial aesthetic for Comayagua
   colors: {
-    primary: "#4A2C2A",      // Deep brown - main brand color
-    accent: "#C9A227",       // Golden - for highlights and CTAs
-    background: "#FAF6F1",   // Warm off-white
-    text: "#2B1B17"          // Dark brown for text
+    primary: "#8B4513",      // Terracotta/adobe brown - colonial
+    accent: "#D4A574",       // Warm amber/gold
+    background: "#F5EBE0",   // Cream/beige - colonial walls
+    text: "#3E2723"          // Dark warm brown
   },
   
   // Typography - Google Fonts will be loaded automatically
   fonts: {
-    heading: "Playfair Display", // Elegant serif for headings
-    body: "Inter"                 // Clean sans-serif for body text
+    heading: "Merriweather",     // Classic serif for colonial feel
+    body: "Open Sans"            // Clean, readable sans-serif
   },
   
   // Hero Section
   hero: {
-    image: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=1920&q=80",
-    headline: "Handcrafted coffee, made with care",
-    subheadline: "Your neighborhood coffee shop since 2020",
-    ctaText: "View Menu",
+    image: "https://i.imgur.com/wyEvzH1.jpg", // Update with direct Imgur link
+    headline: "Café de Especialidad en Comayagua",
+    subheadline: "Donde nuestros baristas se comprometen a enamorarte",
+    ctaText: "Ver Menú",
     ctaLink: "#menu"
   },
   
   // About Section
   about: {
-    title: "Our Story",
-    text: "Born from a passion for exceptional coffee and community connection, Roasted Roots Coffee Co. opened its doors in 2020. We source our beans directly from sustainable farms, roast in small batches, and craft each cup with intention. More than a coffee shop, we're a gathering place where neighbors become friends and every visit feels like coming home.",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80"
+    title: "Nuestra Historia",
+    text: "Somos una Tienda de Café de Especialidad en el corazón colonial de Comayagua, donde nuestros baristas se comprometen a enamorarte. Ubicados en el hermoso Paseo Alameda, ofrecemos una experiencia única combinando café artesanal de alta calidad con deliciosas tapas y postres. Endulzamos nuestras bebidas con rapadura de dulce y chocolate, un toque tradicional que hace cada taza especial. ¡Ven y descubre por qué somos el lugar favorito de la comunidad!",
+    image: "https://i.imgur.com/Wq6jnKo.jpg" // Tapas picture - update with direct link
   },
   
-  // Menu - Organized by category
+  // Menu - Organized by category (Spanish)
   menu: [
     {
-      category: "Espresso Drinks",
+      category: "Cafés Calientes",
       items: [
-        { name: "Espresso", price: "3.00", desc: "Single origin, pulled to perfection" },
-        { name: "Cappuccino", price: "4.50", desc: "Rich espresso, steamed milk, velvety foam" },
-        { name: "Flat White", price: "4.75", desc: "Microfoam over double espresso" },
-        { name: "Latte", price: "5.00", desc: "Smooth espresso with steamed milk" },
-        { name: "Mocha", price: "5.50", desc: "Espresso, chocolate, steamed milk, whipped cream" }
+        { name: "Café Americano", price: "L 35", desc: "Café de especialidad preparado con amor" },
+        { name: "Cappuccino", price: "L 45", desc: "Espresso con leche vaporizada y espuma" },
+        { name: "Latte", price: "L 45", desc: "Suave espresso con leche cremosa" },
+        { name: "Mocha", price: "L 50", desc: "Espresso con chocolate y crema batida" },
+        { name: "Café Negro", price: "L 30", desc: "Café filtrado, aromático y delicioso" }
       ]
     },
     {
-      category: "Brewed Coffee",
+      category: "Cafés Fríos",
       items: [
-        { name: "Drip Coffee", price: "3.50", desc: "Rotating single origin, freshly brewed" },
-        { name: "Pour Over", price: "5.00", desc: "Made to order, choose your bean" },
-        { name: "Cold Brew", price: "4.50", desc: "Smooth, never bitter, steeped 16 hours" },
-        { name: "Nitro Cold Brew", price: "5.50", desc: "Cascading cold brew on tap" }
+        { name: "Café Helado", price: "L 40", desc: "Café frío refrescante" },
+        { name: "Frappé de Caramelo", price: "L 55", desc: "Cremoso y dulce, perfecto para cualquier día" },
+        { name: "Frappé de Oreo", price: "L 55", desc: "Con galletas Oreo trituradas" },
+        { name: "Oh! Colada", price: "L 60", desc: "Nuestra especialidad refrescante" }
       ]
     },
     {
-      category: "Specialty",
+      category: "Bebidas Especiales",
       items: [
-        { name: "Chai Latte", price: "5.00", desc: "House-made spiced chai with steamed milk" },
-        { name: "Matcha Latte", price: "5.50", desc: "Ceremonial grade matcha, creamy and smooth" },
-        { name: "Hot Chocolate", price: "4.00", desc: "Rich Belgian chocolate, steamed milk" }
+        { name: "Matcha Latte", price: "L 50", desc: "Té verde matcha cremoso" },
+        { name: "Chocolate Caliente", price: "L 40", desc: "Chocolate belga con leche vaporizada" },
+        { name: "Té Chai", price: "L 45", desc: "Especiado y aromático" }
       ]
     },
     {
-      category: "Pastries",
+      category: "Comida",
       items: [
-        { name: "Croissant", price: "4.00", desc: "Buttery, flaky, baked fresh daily" },
-        { name: "Almond Croissant", price: "5.00", desc: "Filled with almond cream, toasted almonds" },
-        { name: "Blueberry Muffin", price: "4.50", desc: "Packed with fresh blueberries" },
-        { name: "Banana Bread", price: "4.00", desc: "Moist, with walnuts and cinnamon" }
+        { name: "Tapas", price: "L 60", desc: "Deliciosas tapas frescas y variadas" },
+        { name: "Crepe Dulce", price: "L 65", desc: "Crepe con relleno a elegir" },
+        { name: "Crepe Salado", price: "L 70", desc: "Perfecto para cualquier momento del día" },
+        { name: "Repostería", price: "L 45", desc: "Selección de pasteles y postres frescos" }
       ]
     }
   ],
   
-  // Gallery - Image URLs
+  // Gallery - Image URLs (Update these with direct Imgur links)
   gallery: [
-    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80",
-    "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80",
-    "https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=600&q=80",
-    "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80",
-    "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&q=80",
-    "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=80"
+    "https://i.imgur.com/Wq6jnKo.jpg",  // Tapas
+    "https://i.imgur.com/iEopj64.jpg",  // Coffee cup
+    "https://i.imgur.com/tWjjC7p.jpg",  // Coffee drink
+    "https://i.imgur.com/wpQWkVo.jpg",  // Crepe
+    "https://i.imgur.com/SwvvSBl.jpg",  // Oreo Frappe
+    "https://i.imgur.com/wyEvzH1.jpg"   // Outside terrace/view
   ],
   
   // Hours
   hours: {
-    monday: "7:00 AM - 6:00 PM",
-    tuesday: "7:00 AM - 6:00 PM",
-    wednesday: "7:00 AM - 6:00 PM",
-    thursday: "7:00 AM - 6:00 PM",
-    friday: "7:00 AM - 8:00 PM",
+    monday: "8:00 AM - 8:00 PM",
+    tuesday: "8:00 AM - 8:00 PM",
+    wednesday: "8:00 AM - 8:00 PM",
+    thursday: "8:00 AM - 8:00 PM",
+    friday: "8:00 AM - 8:00 PM",
     saturday: "8:00 AM - 8:00 PM",
-    sunday: "8:00 AM - 4:00 PM"
+    sunday: "8:00 AM - 8:00 PM"
   },
   
   // Location & Contact
-  address: "123 Main Street, Springfield, IL 62701",
-  phone: "(555) 123-4567",
-  email: "hello@roastedroots.coffee",
+  address: "Paseo Alameda frente del Hotel Caxa Real, esquina opuesta de la Plaza de Juventud, Comayagua, Honduras",
+  phone: "+504 9919-7298",
+  email: "ohcafehn@gmail.com",
   
   // Social Media
   social: {
-    instagram: "https://instagram.com/roastedrootscoffee",
-    facebook: "https://facebook.com/roastedrootscoffee"
+    instagram: "https://instagram.com/ohcafehn",
+    facebook: "https://facebook.com/ohcafehn"
   },
   
   // Google Maps Embed URL
   // Get this from: google.com/maps → Search location → Share → Embed a map
-  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.9604740583894!2d-89.65037708459394!3d39.78172997944751!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDQ2JzU0LjIiTiA4OcKwMzgnNTQuMCJX!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus",
+  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3860.8823442876537!2d-87.64534908509707!3d14.454978489887654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6fa31d3d3d3d3d%3A0x0!2zMTTCsDI3JzE3LjkiTiA4N8KwMzgnMzYuMSJX!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus",
   
   // Testimonials
   testimonials: [
     {
-      quote: "The best coffee in town, hands down. The baristas are friendly and the atmosphere is perfect for getting work done or catching up with friends.",
-      author: "Sarah M.",
-      role: "Local Regular"
+      quote: "El mejor café de Comayagua! El ambiente es acogedor y las tapas son deliciosas. Siempre vuelvo por más.",
+      author: "María González",
+      role: "Cliente Frecuente"
     },
     {
-      quote: "I love that they source their beans ethically and roast in-house. You can really taste the difference. The pour over is exceptional!",
-      author: "James T.",
-      role: "Coffee Enthusiast"
+      quote: "Me encanta la atención personalizada y la calidad del café. Los baristas realmente saben lo que hacen. El frappé de caramelo es mi favorito!",
+      author: "Carlos Mejía",
+      role: "Amante del Café"
     },
     {
-      quote: "This place has become my second home. Great coffee, amazing pastries, and the most welcoming community vibe.",
-      author: "Emily R.",
-      role: "Neighborhood Neighbor"
+      quote: "Un lugar perfecto para relajarse y disfrutar de un buen café. La ubicación en el Paseo Alameda es hermosa y el servicio excelente.",
+      author: "Ana Rodríguez",
+      role: "Visitante Regular"
     }
   ],
   
   // CTA Banner
   ctaBanner: {
-    headline: "Come visit us today",
-    subheadline: "Experience the perfect cup",
-    buttonText: "Get Directions",
+    headline: "Visítanos hoy",
+    subheadline: "Experimenta el café perfecto",
+    buttonText: "Cómo Llegar",
     buttonLink: "#location"
   }
 };

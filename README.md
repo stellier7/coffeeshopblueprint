@@ -1,3 +1,9 @@
+# Oh! Café - Website
+
+Website oficial de Oh! Café, una tienda de café de especialidad ubicada en el corazón colonial de Comayagua, Honduras. Construido con HTML, CSS y JavaScript vanilla—sin dependencias ni pasos de compilación.
+
+---
+
 # Coffee Shop Website Template
 
 A complete, production-ready single-page website template for coffee shops. Built with plain HTML, CSS, and vanilla JavaScript—no build step required. Deploy instantly to Vercel, Netlify, or any static hosting platform.
