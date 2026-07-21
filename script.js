@@ -66,9 +66,9 @@ function loadFonts() {
 function populateNavigation() {
   const logoText = document.getElementById('logo-text');
   
-  // If logo image is provided, use it; otherwise use text
+  // If logo image is provided, show image + text; otherwise just text
   if (SHOP.logoImage) {
-    logoText.innerHTML = `<img src="${SHOP.logoImage}" alt="${SHOP.name}" style="height: 40px; width: auto;">`;
+    logoText.innerHTML = `<img src="${SHOP.logoImage}" alt="${SHOP.name}" class="logo-image"> <span class="logo-name">${SHOP.name}</span>`;
   } else {
     logoText.textContent = SHOP.logoText || SHOP.name;
   }

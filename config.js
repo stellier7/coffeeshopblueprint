@@ -9,7 +9,7 @@ const SHOP = {
   name: "Oh! Café",
   tagline: "Ven a probar nuestras deliciosas tapas acompañada de un buen cafecito!",
   logoText: "OH!", // Used if no logo image is provided
-  logoImage: "", // Leave empty to use text logo, or add direct image URL when available
+  logoImage: "images/logo.png", // Oh! Café logo
   
   // Colors - Colonial aesthetic for Comayagua
   colors: {

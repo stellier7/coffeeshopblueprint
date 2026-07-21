@@ -412,11 +412,41 @@ p {
   font-weight: 700;
   color: var(--white);
   transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-image {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: var(--transition-fast);
+}
+
+.logo-name {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+  transition: var(--transition-fast);
 }
 
 .logo:hover .logo-text {
   color: var(--accent);
   transform: scale(1.05);
+}
+
+.logo:hover .logo-image {
+  transform: scale(1.1) rotate(5deg);
+  border-color: var(--accent);
+}
+
+.logo:hover .logo-name {
+  color: var(--accent);
 }
 
 .nav-links {
