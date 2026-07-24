@@ -28,8 +28,8 @@ const SHOP = {
   // Hero Section
   hero: {
     image: "images/hero.jpg",
-    headline: "Somos una panadería y repostería",
-    subheadline: "Alimentando en tu hogar con el pan de la mejor calidad desde 1993",
+    headline: "Coffee and Cakes",
+    subheadline: "Somos una panadería y repostería. Alimentando en tu hogar con el pan de la mejor calidad desde 1993.",
     ctaText: "Ver Menú",
     ctaLink: "#menu"
   },
