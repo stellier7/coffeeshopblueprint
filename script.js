@@ -138,7 +138,7 @@ function populateMenu() {
       
       const itemPrice = document.createElement('span');
       itemPrice.className = 'menu-item-price';
-      itemPrice.textContent = `$${item.price}`;
+      itemPrice.textContent = item.price;
       
       itemHeader.appendChild(itemName);
       itemHeader.appendChild(itemPrice);
