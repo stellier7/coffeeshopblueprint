@@ -6,140 +6,145 @@
 
 const SHOP = {
   // Basic Info
-  name: "Roasted Roots Coffee Co.",
-  tagline: "Small batch. Big heart.",
-  logoText: "RR", // Used if no logo image is provided
+  name: "Coffee and Cakes",
+  tagline: "Somos una panadería y repostería, alimentando en tu hogar con el pan de la mejor calidad desde 1993.",
+  logoText: "C&C", // Used if no logo image is provided
+  logoImage: "images/logo.jpg", // Custom logo for Coffee and Cakes
   
   // Colors - These will be applied site-wide via CSS custom properties
   colors: {
-    primary: "#4A2C2A",      // Deep brown - main brand color
-    accent: "#C9A227",       // Golden - for highlights and CTAs
-    background: "#FAF6F1",   // Warm off-white
-    text: "#2B1B17"          // Dark brown for text
+    primary: "#1A1A1A",      // Rich black - main brand color
+    accent: "#A0826D",       // Light wood brown - for highlights and CTAs
+    background: "#F5F1ED",   // Warm cream
+    text: "#2D2420"          // Dark brown for text
   },
   
   // Typography - Google Fonts will be loaded automatically
   fonts: {
-    heading: "Playfair Display", // Elegant serif for headings
-    body: "Inter"                 // Clean sans-serif for body text
+    heading: "Bebas Neue",   // Bold, impactful font for headings (like logo)
+    body: "Roboto"           // Clean, modern sans-serif for body text
   },
   
   // Hero Section
   hero: {
-    image: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=1920&q=80",
-    headline: "Handcrafted coffee, made with care",
-    subheadline: "Your neighborhood coffee shop since 2020",
-    ctaText: "View Menu",
+    image: "images/hero.jpg",
+    headline: "Somos una panadería y repostería",
+    subheadline: "Alimentando en tu hogar con el pan de la mejor calidad desde 1993",
+    ctaText: "Ver Menú",
     ctaLink: "#menu"
   },
   
   // About Section
   about: {
-    title: "Our Story",
-    text: "Born from a passion for exceptional coffee and community connection, Roasted Roots Coffee Co. opened its doors in 2020. We source our beans directly from sustainable farms, roast in small batches, and craft each cup with intention. More than a coffee shop, we're a gathering place where neighbors become friends and every visit feels like coming home.",
-    image: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80"
+    title: "Nuestra Historia",
+    text: "Desde 1993, Coffee and Cakes ha sido el corazón de la comunidad de Comayagua, Honduras. Somos una panadería y repostería familiar dedicada a crear productos artesanales de la más alta calidad. Nuestro pan de masa madre, bollitos recién horneados, y repostería tradicional hondureña se elaboran cada día con ingredientes frescos y el cuidado que merece tu familia. Más que una panadería, somos parte de tu hogar, trayendo sabor y tradición a cada mesa.",
+    image: "images/about.jpg"
   },
   
   // Menu - Organized by category
   menu: [
     {
-      category: "Espresso Drinks",
+      category: "Café",
       items: [
-        { name: "Espresso", price: "3.00", desc: "Single origin, pulled to perfection" },
-        { name: "Cappuccino", price: "4.50", desc: "Rich espresso, steamed milk, velvety foam" },
-        { name: "Flat White", price: "4.75", desc: "Microfoam over double espresso" },
-        { name: "Latte", price: "5.00", desc: "Smooth espresso with steamed milk" },
-        { name: "Mocha", price: "5.50", desc: "Espresso, chocolate, steamed milk, whipped cream" }
+        { name: "Americano", price: "L 35", desc: "Café espresso con agua caliente" },
+        { name: "Cappuccino", price: "L 45", desc: "Espresso con leche vaporizada y espuma" },
+        { name: "Latte", price: "L 50", desc: "Espresso suave con leche vaporizada" },
+        { name: "Mochachino", price: "L 55", desc: "Espresso, chocolate y leche vaporizada" },
+        { name: "Café de Olla", price: "L 40", desc: "Café tradicional hondureño con especias" }
       ]
     },
     {
-      category: "Brewed Coffee",
+      category: "Panadería",
       items: [
-        { name: "Drip Coffee", price: "3.50", desc: "Rotating single origin, freshly brewed" },
-        { name: "Pour Over", price: "5.00", desc: "Made to order, choose your bean" },
-        { name: "Cold Brew", price: "4.50", desc: "Smooth, never bitter, steeped 16 hours" },
-        { name: "Nitro Cold Brew", price: "5.50", desc: "Cascading cold brew on tap" }
+        { name: "Pan de Masa Madre", price: "L 60", desc: "Pan artesanal fermentado naturalmente" },
+        { name: "Bollitos de Masa Madre", price: "L 15", desc: "Suaves y esponjosos, recién horneados" },
+        { name: "Semitas de Masa Madre", price: "L 20", desc: "Tradicionales semitas hondureñas" },
+        { name: "Pan Francés", price: "L 8", desc: "Crujiente por fuera, suave por dentro" },
+        { name: "Pan Integral", price: "L 50", desc: "Saludable y nutritivo" }
       ]
     },
     {
-      category: "Specialty",
+      category: "Repostería Hondureña",
       items: [
-        { name: "Chai Latte", price: "5.00", desc: "House-made spiced chai with steamed milk" },
-        { name: "Matcha Latte", price: "5.50", desc: "Ceremonial grade matcha, creamy and smooth" },
-        { name: "Hot Chocolate", price: "4.00", desc: "Rich Belgian chocolate, steamed milk" }
+        { name: "Semitas Rellenas", price: "L 25", desc: "Rellenas de dulce de piña o guayaba" },
+        { name: "Quesadillas Hondureñas", price: "L 30", desc: "Esponjosas y deliciosas" },
+        { name: "Marquesote", price: "L 35", desc: "Pan dulce tradicional" },
+        { name: "Torrejas", price: "L 40", desc: "Especiales de temporada" },
+        { name: "Rosquillas", price: "L 15", desc: "Crujientes galletas tradicionales" }
       ]
     },
     {
-      category: "Pastries",
+      category: "Pasteles y Cakes",
       items: [
-        { name: "Croissant", price: "4.00", desc: "Buttery, flaky, baked fresh daily" },
-        { name: "Almond Croissant", price: "5.00", desc: "Filled with almond cream, toasted almonds" },
-        { name: "Blueberry Muffin", price: "4.50", desc: "Packed with fresh blueberries" },
-        { name: "Banana Bread", price: "4.00", desc: "Moist, with walnuts and cinnamon" }
+        { name: "Pastel de Chocolate", price: "L 450", desc: "Porción individual L 45" },
+        { name: "Pastel de Vainilla", price: "L 400", desc: "Porción individual L 40" },
+        { name: "Pastel Tres Leches", price: "L 500", desc: "Porción individual L 50" },
+        { name: "Cupcakes", price: "L 25", desc: "Variedad de sabores" },
+        { name: "Pasteles Personalizados", price: "Consultar", desc: "Para eventos especiales" }
       ]
     }
   ],
   
   // Gallery - Image URLs
   gallery: [
-    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80",
-    "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80",
-    "https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=600&q=80",
-    "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80",
-    "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&q=80",
-    "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=80"
+    "images/gallery_1.jpg",
+    "images/gallery_2.jpg",
+    "images/gallery_3.jpg",
+    "images/gallery_4.jpg",
+    "images/gallery_5.jpg",
+    "images/gallery_6.jpg"
   ],
   
   // Hours
   hours: {
-    monday: "7:00 AM - 6:00 PM",
-    tuesday: "7:00 AM - 6:00 PM",
-    wednesday: "7:00 AM - 6:00 PM",
-    thursday: "7:00 AM - 6:00 PM",
-    friday: "7:00 AM - 8:00 PM",
-    saturday: "8:00 AM - 8:00 PM",
-    sunday: "8:00 AM - 4:00 PM"
+    monday: "8:00 AM - 5:30 PM",
+    tuesday: "8:00 AM - 5:30 PM",
+    wednesday: "8:00 AM - 5:30 PM",
+    thursday: "8:00 AM - 5:30 PM",
+    friday: "8:00 AM - 5:30 PM",
+    saturday: "8:00 AM - 5:30 PM",
+    sunday: "Cerrado"
   },
   
   // Location & Contact
-  address: "123 Main Street, Springfield, IL 62701",
-  phone: "(555) 123-4567",
-  email: "hello@roastedroots.coffee",
+  address: "Calle Real, 100 metros al norte de Iglesia La Merced, Comayagua, Honduras, 0301",
+  phone: "2772-1729",
+  email: "coffeeandcakes0301@gmail.com",
   
   // Social Media
   social: {
-    instagram: "https://instagram.com/roastedrootscoffee",
-    facebook: "https://facebook.com/roastedrootscoffee"
+    instagram: "https://www.instagram.com/coffeeandcakeshn",
+    facebook: "https://www.facebook.com/coffeeandcakeshn"
   },
   
   // Google Maps Embed URL
   // Get this from: google.com/maps → Search location → Share → Embed a map
-  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.9604740583894!2d-89.65037708459394!3d39.78172997944751!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMznCsDQ2JzU0LjIiTiA4OcKwMzgnNTQuMCJX!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus",
+  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3867.4856782891845!2d-87.64486592408743!3d14.454321386030195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6fa2f88888888f%3A0x5fe8b0a0a0a0a0a0!2sCoffee%20and%20Cakes!5e0!3m2!1sen!2shn!4v1721851200000!5m2!1sen!2shn",
   
   // Testimonials
   testimonials: [
     {
-      quote: "The best coffee in town, hands down. The baristas are friendly and the atmosphere is perfect for getting work done or catching up with friends.",
-      author: "Sarah M.",
-      role: "Local Regular"
+      quote: "Local bread shop... stopped for cookies and coffee. Wide assortment of breads, buns, cookies and cakes made fresh. Courteous staff and clean place to stop.",
+      author: "L 100-200",
+      role: "Cliente Google"
     },
     {
-      quote: "I love that they source their beans ethically and roast in-house. You can really taste the difference. The pour over is exceptional!",
-      author: "James T.",
-      role: "Coffee Enthusiast"
+      quote: "A mi siempre me encanta ir! It's perfect to spend time with your friends.",
+      author: "Cecilia Calix-Cui",
+      role: "Cliente Frecuente"
     },
     {
-      quote: "This place has become my second home. Great coffee, amazing pastries, and the most welcoming community vibe.",
-      author: "Emily R.",
-      role: "Neighborhood Neighbor"
+      quote: "Quick friendly service. Delicious baked goods and coffee.",
+      author: "John Anderson",
+      role: "Local Guide"
     }
   ],
   
   // CTA Banner
   ctaBanner: {
-    headline: "Come visit us today",
-    subheadline: "Experience the perfect cup",
-    buttonText: "Get Directions",
-    buttonLink: "#location"
+    headline: "Visítanos hoy",
+    subheadline: "Descubre el sabor de la tradición hondureña",
+    buttonText: "Cómo Llegar",
+    buttonLink: "https://maps.app.goo.gl/r2vgVhF3xiEv4uqS9"
   }
 };

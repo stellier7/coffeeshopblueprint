@@ -65,7 +65,19 @@ function loadFonts() {
 // ============================================================
 function populateNavigation() {
   const logoText = document.getElementById('logo-text');
-  logoText.textContent = SHOP.name;
+  
+  // If a logo image is provided, use it; otherwise use text
+  if (SHOP.logoImage) {
+    const logoImg = document.createElement('img');
+    logoImg.src = SHOP.logoImage;
+    logoImg.alt = SHOP.name;
+    logoImg.style.height = '50px';
+    logoImg.style.width = 'auto';
+    logoText.innerHTML = '';
+    logoText.appendChild(logoImg);
+  } else {
+    logoText.textContent = SHOP.name;
+  }
 }
 
 // ============================================================
@@ -248,6 +260,12 @@ function populateCTABanner() {
   ctaSubheadline.textContent = SHOP.ctaBanner.subheadline;
   ctaButton.textContent = SHOP.ctaBanner.buttonText;
   ctaButton.href = SHOP.ctaBanner.buttonLink;
+  
+  // If external link, open in new tab
+  if (SHOP.ctaBanner.buttonLink.startsWith('http')) {
+    ctaButton.target = '_blank';
+    ctaButton.rel = 'noopener noreferrer';
+  }
 }
 
 // ============================================================
