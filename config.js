@@ -9,7 +9,7 @@ const SHOP = {
   name: "Coffee and Cakes",
   tagline: "Somos una panadería y repostería, alimentando en tu hogar con el pan de la mejor calidad desde 1993.",
   logoText: "C&C", // Used if no logo image is provided
-  logoImage: "images/logo.jpg", // Custom logo for Coffee and Cakes
+  logoImage: "images/logo.png", // Custom logo for Coffee and Cakes
   
   // Colors - These will be applied site-wide via CSS custom properties
   colors: {
