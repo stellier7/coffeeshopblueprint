@@ -166,7 +166,7 @@ const SHOP = {
     
     // 3D: true | false
     // Enable/disable 3D transforms and WebGL effects
-    enable3D: true
+    enable3D: false
   },
   
   // ============================================================
