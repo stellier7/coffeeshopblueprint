@@ -15,10 +15,16 @@
   
   <link rel="stylesheet" href="styles.css">
   
-  <!-- Load config first, then main script -->
+  <!-- Three.js for optional 3D effects (loaded conditionally) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  
+  <!-- Load config first, then scripts -->
   <script src="config.js"></script>
 </head>
 <body>
+  
+  <!-- Scroll Progress Indicator -->
+  <div class="scroll-progress" id="scroll-progress"></div>
   
   <!-- Navigation -->
   <nav class="navbar" id="navbar">
@@ -181,5 +187,6 @@
   </footer>
 
   <script src="script.js"></script>
+  <script src="hero-3d.js"></script>
 </body>
 </html>
