@@ -141,5 +141,54 @@ const SHOP = {
     subheadline: "Experience the perfect cup",
     buttonText: "Get Directions",
     buttonLink: "#location"
+  },
+  
+  // ============================================================
+  // ANIMATION SYSTEM - Control motion intensity site-wide
+  // ============================================================
+  animations: {
+    // Intensity: 'minimal' | 'standard' | 'theatrical'
+    // - minimal: Reduced motion, faster timings, less distance
+    // - standard: Balanced (current implementation)
+    // - theatrical: Maximum impact, longer timings, more travel
+    intensity: 'theatrical',
+    
+    // Speed: 'fast' | 'normal' | 'slow'
+    // Multiplier for all animation durations
+    // - fast: 0.7x (snappy, modern)
+    // - normal: 1.0x (balanced)
+    // - slow: 1.3x (luxurious, elegant)
+    speed: 'normal',
+    
+    // Parallax: true | false
+    // Enable/disable scroll-linked parallax effects
+    parallax: true,
+    
+    // 3D: true | false
+    // Enable/disable 3D transforms and WebGL effects
+    enable3D: true
+  },
+  
+  // ============================================================
+  // DESIGN SYSTEM - Control visual design language
+  // ============================================================
+  designSystem: {
+    // Border radius: 'sharp' | 'rounded' | 'pill'
+    // - sharp: 4px for everything
+    // - rounded: 8-16px (current)
+    // - pill: 50px+ for buttons/cards
+    borderRadius: 'rounded',
+    
+    // Shadows: 'flat' | 'medium' | 'dramatic'
+    // - flat: Minimal shadows, borders for depth
+    // - medium: Balanced (current)
+    // - dramatic: Heavy shadows, more depth
+    shadows: 'dramatic',
+    
+    // Style: 'minimal' | 'modern' | 'luxe'
+    // - minimal: Clean, lots of whitespace, subtle colors
+    // - modern: Bold, geometric, strong contrast (CURRENT TARGET)
+    // - luxe: Rich, ornate, premium feel
+    style: 'modern'
   }
 };

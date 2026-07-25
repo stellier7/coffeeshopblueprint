@@ -2,12 +2,52 @@
 // Initialize on DOM Load
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
-  loadConfigData();
-  setupNavigation();
-  setupLightbox();
-  setupScrollAnimations();
-  setupHeroAnimations();
+  // Preload critical images first
+  preloadCriticalImages().then(() => {
+    loadConfigData();
+    setupNavigation();
+    setupLightbox();
+    setupScrollAnimations();
+    setupHeroAnimations();
+    setupScrollProgress();
+    setupActiveNavigation();
+  });
 });
+
+// ============================================================
+// Preload Critical Images for Fast First Paint
+// ============================================================
+function preloadCriticalImages() {
+  return new Promise((resolve) => {
+    const criticalImages = [
+      SHOP.hero.image,
+      SHOP.about.image,
+      ...(SHOP.gallery ? SHOP.gallery.slice(0, 3) : [])
+    ];
+    
+    let loadedCount = 0;
+    const totalImages = criticalImages.length;
+    
+    if (totalImages === 0) {
+      resolve();
+      return;
+    }
+    
+    criticalImages.forEach(src => {
+      const img = new Image();
+      img.onload = img.onerror = () => {
+        loadedCount++;
+        if (loadedCount === totalImages) {
+          resolve();
+        }
+      };
+      img.src = src;
+    });
+    
+    // Timeout fallback - don't wait forever
+    setTimeout(resolve, 3000);
+  });
+}
 
 // ============================================================
 // Load Configuration Data
@@ -15,6 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
 function loadConfigData() {
   // Apply colors as CSS custom properties
   applyColors();
+  
+  // Apply animation settings
+  applyAnimationSettings();
+  
+  // Apply design system settings
+  applyDesignSystem();
   
   // Load Google Fonts
   loadFonts();
@@ -43,6 +89,107 @@ function applyColors() {
   root.style.setProperty('--accent', SHOP.colors.accent);
   root.style.setProperty('--background', SHOP.colors.background);
   root.style.setProperty('--text', SHOP.colors.text);
+}
+
+// ============================================================
+// Apply Animation Settings from Config
+// ============================================================
+function applyAnimationSettings() {
+  const root = document.documentElement;
+  const animations = SHOP.animations || {};
+  
+  // Speed multipliers
+  const speedMultipliers = {
+    'fast': 0.7,
+    'normal': 1.0,
+    'slow': 1.3
+  };
+  
+  const speedMultiplier = speedMultipliers[animations.speed] || 1.0;
+  
+  // Apply speed multiplier to duration variables
+  const baseDurations = {
+    fast: 0.2,
+    normal: 0.3,
+    slow: 0.5,
+    entrance: 1.0
+  };
+  
+  Object.entries(baseDurations).forEach(([key, value]) => {
+    root.style.setProperty(`--duration-${key}`, `${value * speedMultiplier}s`);
+  });
+  
+  // Intensity adjustments (travel distance)
+  const intensityMultipliers = {
+    'minimal': 0.5,    // 50% travel distance
+    'standard': 1.0,   // Default
+    'theatrical': 1.3  // 130% travel distance
+  };
+  
+  const intensityMultiplier = intensityMultipliers[animations.intensity] || 1.0;
+  root.style.setProperty('--intensity-multiplier', intensityMultiplier);
+  
+  // Disable parallax if configured
+  if (animations.parallax === false) {
+    document.body.classList.add('no-parallax');
+  }
+  
+  // Disable 3D if configured
+  if (animations.enable3D === false) {
+    document.body.classList.add('no-3d');
+  }
+}
+
+// ============================================================
+// Apply Design System Settings from Config
+// ============================================================
+function applyDesignSystem() {
+  const root = document.documentElement;
+  const design = SHOP.designSystem || {};
+  
+  // Border radius
+  const radiusValues = {
+    'sharp': { sm: '4px', md: '4px', lg: '4px', full: '4px' },
+    'rounded': { sm: '8px', md: '12px', lg: '16px', full: '50px' },
+    'pill': { sm: '50px', md: '50px', lg: '50px', full: '50px' }
+  };
+  
+  const radius = radiusValues[design.borderRadius] || radiusValues['rounded'];
+  Object.entries(radius).forEach(([key, value]) => {
+    root.style.setProperty(`--radius-${key}`, value);
+  });
+  
+  // Shadow intensity
+  const shadowValues = {
+    'flat': {
+      sm: '0 1px 2px rgba(0, 0, 0, 0.05)',
+      md: '0 1px 3px rgba(0, 0, 0, 0.08)',
+      lg: '0 2px 8px rgba(0, 0, 0, 0.1)',
+      xl: '0 4px 16px rgba(0, 0, 0, 0.12)'
+    },
+    'medium': {
+      sm: '0 2px 8px rgba(0, 0, 0, 0.08)',
+      md: '0 4px 16px rgba(0, 0, 0, 0.12)',
+      lg: '0 8px 32px rgba(0, 0, 0, 0.16)',
+      xl: '0 12px 48px rgba(0, 0, 0, 0.2)'
+    },
+    'dramatic': {
+      sm: '0 4px 12px rgba(0, 0, 0, 0.12)',
+      md: '0 8px 24px rgba(0, 0, 0, 0.16)',
+      lg: '0 12px 40px rgba(0, 0, 0, 0.2)',
+      xl: '0 20px 60px rgba(0, 0, 0, 0.25)'
+    }
+  };
+  
+  const shadows = shadowValues[design.shadows] || shadowValues['medium'];
+  Object.entries(shadows).forEach(([key, value]) => {
+    root.style.setProperty(`--shadow-${key}`, value);
+  });
+  
+  // Add style class to body for CSS targeting
+  if (design.style) {
+    document.body.classList.add(`style-${design.style}`);
+  }
 }
 
 // ============================================================
@@ -573,4 +720,61 @@ function setupHeroAnimations() {
   });
   
   heroObserver.observe(hero);
+}
+
+// ============================================================
+// Scroll Progress Indicator
+// ============================================================
+function setupScrollProgress() {
+  const progressBar = document.getElementById('scroll-progress');
+  if (!progressBar) return;
+  
+  let ticking = false;
+  
+  function updateScrollProgress() {
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = window.scrollY;
+    const progress = scrolled / scrollHeight;
+    
+    progressBar.style.transform = `scaleX(${progress})`;
+    ticking = false;
+  }
+  
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateScrollProgress);
+      ticking = true;
+    }
+  }, { passive: true });
+  
+  updateScrollProgress();
+}
+
+// ============================================================
+// Active Navigation - Highlight Current Section
+// ============================================================
+function setupActiveNavigation() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        
+        // Remove active class from all links
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${id}`) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, {
+    threshold: 0.3,
+    rootMargin: '-80px 0px -60% 0px'
+  });
+  
+  sections.forEach(section => observer.observe(section));
 }
