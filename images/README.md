@@ -2,6 +2,9 @@
 
 ## Place Your Images Here
 
+Logo: <img width="1039" height="1039" alt="image" src="https://github.com/user-attachments/assets/8a030fdc-2d25-4cb2-9d32-146b7f354d95" />
+
+
 This folder should contain all images for the Neon Café website.
 
 ### Required Files:
