@@ -249,17 +249,34 @@ function populateLocation() {
 }
 
 // ============================================================
+// Directions URLs (Google Maps & Waze)
+// ============================================================
+function getDirectionsUrls() {
+  const query = encodeURIComponent(SHOP.address);
+  return {
+    googleMaps: `https://www.google.com/maps/dir/?api=1&destination=${query}`,
+    waze: `https://waze.com/ul?q=${query}&navigate=yes`
+  };
+}
+
+// ============================================================
 // Populate CTA Banner
 // ============================================================
 function populateCTABanner() {
   const ctaHeadline = document.getElementById('cta-headline');
   const ctaSubheadline = document.getElementById('cta-subheadline');
-  const ctaButton = document.getElementById('cta-button');
+  const ctaMaps = document.getElementById('cta-maps');
+  const ctaWaze = document.getElementById('cta-waze');
+  const directions = getDirectionsUrls();
   
   ctaHeadline.textContent = SHOP.ctaBanner.headline;
   ctaSubheadline.textContent = SHOP.ctaBanner.subheadline;
-  ctaButton.textContent = SHOP.ctaBanner.buttonText;
-  ctaButton.href = SHOP.ctaBanner.buttonLink;
+  
+  ctaMaps.textContent = SHOP.ctaBanner.mapsButtonText;
+  ctaMaps.href = directions.googleMaps;
+  
+  ctaWaze.textContent = SHOP.ctaBanner.wazeButtonText;
+  ctaWaze.href = directions.waze;
 }
 
 // ============================================================

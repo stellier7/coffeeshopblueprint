@@ -225,11 +225,11 @@ const SHOP = {
     }
   ],
   
-  // CTA Banner
+  // CTA Banner — "Cómo Llegar" opens Google Maps / Waze
   ctaBanner: {
     headline: "Visítanos hoy",
     subheadline: "Experimenta el ambiente perfecto",
-    buttonText: "Cómo Llegar",
-    buttonLink: "#location"
+    mapsButtonText: "Google Maps",
+    wazeButtonText: "Waze"
   }
 };

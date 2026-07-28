@@ -1623,9 +1623,29 @@ p {
   transform: scale(0.95);
 }
 
+.cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+}
+
 .cta-content .btn {
   opacity: 0;
   transform: scale(0.95);
+}
+
+.cta-content .btn-outline-light {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+}
+
+.cta-content .btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--white);
+  border-color: var(--white);
 }
 
 /* Sequential scale animations */
@@ -1639,6 +1659,10 @@ p {
 
 .cta-banner.section-visible .cta-content .btn {
   animation: ctaScaleIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+.cta-banner.section-visible .cta-content .btn:nth-child(2) {
+  animation-delay: 0.4s;
 }
 
 @keyframes ctaScaleIn {
