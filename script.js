@@ -64,13 +64,29 @@ function loadFonts() {
 // Populate Navigation
 // ============================================================
 function populateNavigation() {
+  const logoImage = document.getElementById('logo-image');
   const logoText = document.getElementById('logo-text');
-  logoText.textContent = SHOP.name;
+  
+  // If logo image is provided, show it; otherwise show text
+  if (SHOP.logoImage) {
+    logoImage.src = SHOP.logoImage;
+    logoImage.style.display = 'block';
+    logoText.style.display = 'none';
+  } else {
+    logoImage.style.display = 'none';
+    logoText.textContent = SHOP.logoText || SHOP.name;
+    logoText.style.display = 'block';
+  }
 }
 
 // ============================================================
 // Populate Hero Section
 // ============================================================
+function neonFirstLetter(text) {
+  if (!text) return '';
+  return `<span class="neon-letter">${text.charAt(0)}</span>${text.slice(1)}`;
+}
+
 function populateHero() {
   const heroImage = document.getElementById('hero-image');
   const heroHeadline = document.getElementById('hero-headline');
@@ -78,8 +94,9 @@ function populateHero() {
   const heroCTA = document.getElementById('hero-cta');
   
   heroImage.style.backgroundImage = `url('${SHOP.hero.image}')`;
-  heroHeadline.textContent = SHOP.hero.headline;
-  heroSubheadline.textContent = SHOP.hero.subheadline;
+  // Option A: neon on first capital only (N / A)
+  heroHeadline.innerHTML = neonFirstLetter(SHOP.hero.headline);
+  heroSubheadline.innerHTML = neonFirstLetter(SHOP.hero.subheadline);
   heroCTA.textContent = SHOP.hero.ctaText;
   heroCTA.href = SHOP.hero.ctaLink;
 }
@@ -92,7 +109,7 @@ function populateAbout() {
   const aboutText = document.getElementById('about-text');
   const aboutImage = document.getElementById('about-image');
   
-  aboutTitle.textContent = SHOP.about.title;
+  aboutTitle.innerHTML = neonFirstLetter(SHOP.about.title);
   aboutText.textContent = SHOP.about.text;
   aboutImage.src = SHOP.about.image;
   aboutImage.alt = `${SHOP.name} interior`;
@@ -498,17 +515,15 @@ function setupHeroAnimations() {
   let ticking = false;
   let lastScrollY = window.scrollY;
   
-  // Parallax and scroll-out effect using requestAnimationFrame
+  // Scroll effect - NO parallax, just content fade
   function updateHeroOnScroll() {
     const scrollY = window.scrollY;
     const heroHeight = hero.offsetHeight;
     const scrollProgress = Math.min(scrollY / heroHeight, 1);
     
-    // Parallax effect - background moves slower (0.5x speed creates depth)
-    const parallaxOffset = scrollY * 0.5;
-    heroImage.style.transform = `translateY(${parallaxOffset}px) scale(1.1)`;
+    // NO parallax - image stays completely fixed via CSS
+    // Only fade out content as user scrolls
     
-    // Scroll-out fade and scale effect
     const fadeStart = 0.3;
     const fadeProgress = Math.max((scrollProgress - fadeStart) / (1 - fadeStart), 0);
     
@@ -518,11 +533,9 @@ function setupHeroAnimations() {
       
       heroContent.style.opacity = opacity;
       heroContent.style.transform = `scale(${scale}) translateY(${fadeProgress * 30}px)`;
-      heroOverlay.style.opacity = opacity;
     } else {
       heroContent.style.opacity = '';
       heroContent.style.transform = '';
-      heroOverlay.style.opacity = '';
     }
     
     ticking = false;

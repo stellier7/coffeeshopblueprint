@@ -272,6 +272,15 @@ p {
   text-align: center;
 }
 
+/* Neon pink accent on select capitals */
+.neon-letter {
+  color: var(--accent);
+  text-shadow:
+    0 0 6px rgba(255, 20, 147, 0.9),
+    0 0 16px rgba(255, 20, 147, 0.55),
+    0 0 32px rgba(255, 20, 147, 0.35);
+}
+
 .btn {
   display: inline-block;
   padding: 1rem 2.5rem;
@@ -414,9 +423,24 @@ p {
   transition: var(--transition-fast);
 }
 
+.logo-image {
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  transition: var(--transition-fast);
+  display: none;
+}
+
 .logo:hover .logo-text {
   color: var(--accent);
   transform: scale(1.05);
+}
+
+.logo:hover .logo-image {
+  transform: scale(1.1);
+  border-color: var(--white);
 }
 
 .nav-links {
@@ -497,12 +521,10 @@ p {
 }
 
 /* ============================================================
-   Hero Section - Dramatic Fixed Background Effect
+   Hero Section - Smooth Parallax Effect
    ============================================================ */
 .hero {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
   height: 100vh;
   min-height: 600px;
@@ -510,38 +532,39 @@ p {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  will-change: opacity, transform;
   z-index: 1;
+  isolation: isolate;
 }
 
 .hero-image {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 110%;
+  height: 100vh;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  will-change: transform;
-  opacity: 0;
-  transform: scale(1.15);
+  opacity: 1;
+  z-index: 0;
+  transform: none !important;
+  animation: none !important;
 }
 
 .hero-overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: linear-gradient(
     135deg,
-    rgba(74, 44, 42, 0.75) 0%,
-    rgba(74, 44, 42, 0.5) 50%,
-    rgba(74, 44, 42, 0.35) 100%
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.3) 100%
   );
-  will-change: opacity;
-  opacity: 0;
+  opacity: 1;
+  z-index: 1;
 }
 
 .hero-content {
@@ -686,10 +709,12 @@ p {
 .about {
   position: relative;
   background-color: var(--white);
-  margin-top: 100vh;
-  z-index: 2;
+  z-index: 10;
   width: 100%;
   overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .about-grid {
@@ -808,9 +833,12 @@ p {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  z-index: 2;
+  z-index: 10;
   width: 100%;
   overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Dark coffee-tinted overlay for contrast */
@@ -1022,7 +1050,10 @@ p {
     #F8F4EC 75%,
     #FAF6F1 100%
   );
-  z-index: 2;
+  z-index: 10;
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   width: 100%;
   overflow: hidden;
 }
@@ -1298,9 +1329,12 @@ p {
 .testimonials {
   position: relative;
   background-color: var(--background);
-  z-index: 2;
+  z-index: 10;
   width: 100%;
   overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .testimonials-grid {
@@ -1407,9 +1441,12 @@ p {
 .location {
   position: relative;
   background-color: var(--white);
-  z-index: 2;
+  z-index: 10;
   width: 100%;
   overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .location-grid {
@@ -1574,6 +1611,10 @@ p {
   text-align: center;
   position: relative;
   overflow: hidden;
+  z-index: 10;
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   z-index: 2;
   width: 100%;
 }
@@ -1682,7 +1723,10 @@ p {
   padding: 3rem 0;
   text-align: center;
   position: relative;
-  z-index: 2;
+  z-index: 10;
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   width: 100%;
   overflow: hidden;
 }
