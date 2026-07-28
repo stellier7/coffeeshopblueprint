@@ -64,8 +64,19 @@ function loadFonts() {
 // Populate Navigation
 // ============================================================
 function populateNavigation() {
+  const logoImage = document.getElementById('logo-image');
   const logoText = document.getElementById('logo-text');
-  logoText.textContent = SHOP.name;
+  
+  // If logo image is provided, show it; otherwise show text
+  if (SHOP.logoImage) {
+    logoImage.src = SHOP.logoImage;
+    logoImage.style.display = 'block';
+    logoText.style.display = 'none';
+  } else {
+    logoImage.style.display = 'none';
+    logoText.textContent = SHOP.logoText || SHOP.name;
+    logoText.style.display = 'block';
+  }
 }
 
 // ============================================================

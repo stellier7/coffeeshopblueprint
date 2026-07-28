@@ -414,9 +414,24 @@ p {
   transition: var(--transition-fast);
 }
 
+.logo-image {
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  transition: var(--transition-fast);
+  display: none;
+}
+
 .logo:hover .logo-text {
   color: var(--accent);
   transform: scale(1.05);
+}
+
+.logo:hover .logo-image {
+  transform: scale(1.1);
+  border-color: var(--white);
 }
 
 .nav-links {

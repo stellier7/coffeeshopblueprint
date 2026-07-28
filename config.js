@@ -9,6 +9,7 @@ const SHOP = {
   name: "Neon Café",
   tagline: "Ambiente. Comunidad. Cafe",
   logoText: "NC", // Used if no logo image is provided
+  logoImage: "images/logo.jpeg", // Actual logo image
   
   // Colors - Neon pink, black, and white theme
   colors: {
