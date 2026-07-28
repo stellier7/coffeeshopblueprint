@@ -498,7 +498,9 @@ function populateLocation() {
   
   const phoneLink = document.getElementById('phone-link');
   phoneLink.textContent = SHOP.phone;
-  phoneLink.href = `tel:${SHOP.phone.replace(/\D/g, '')}`;
+  phoneLink.href = `https://wa.me/${SHOP.phone.replace(/\D/g, '')}`;
+  phoneLink.target = '_blank';
+  phoneLink.rel = 'noopener';
   
   const emailLink = document.getElementById('email-link');
   emailLink.textContent = SHOP.email;
