@@ -700,9 +700,12 @@ p {
 .about {
   position: relative;
   background-color: var(--white);
-  z-index: 2;
+  z-index: 10;
   width: 100%;
   overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .about-grid {
@@ -821,9 +824,12 @@ p {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  z-index: 2;
+  z-index: 10;
   width: 100%;
   overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Dark coffee-tinted overlay for contrast */
@@ -1035,7 +1041,10 @@ p {
     #F8F4EC 75%,
     #FAF6F1 100%
   );
-  z-index: 2;
+  z-index: 10;
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   width: 100%;
   overflow: hidden;
 }
@@ -1311,9 +1320,12 @@ p {
 .testimonials {
   position: relative;
   background-color: var(--background);
-  z-index: 2;
+  z-index: 10;
   width: 100%;
   overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .testimonials-grid {
@@ -1420,9 +1432,12 @@ p {
 .location {
   position: relative;
   background-color: var(--white);
-  z-index: 2;
+  z-index: 10;
   width: 100%;
   overflow: hidden;
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .location-grid {
@@ -1587,6 +1602,10 @@ p {
   text-align: center;
   position: relative;
   overflow: hidden;
+  z-index: 10;
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   z-index: 2;
   width: 100%;
 }
@@ -1695,7 +1714,10 @@ p {
   padding: 3rem 0;
   text-align: center;
   position: relative;
-  z-index: 2;
+  z-index: 10;
+  isolation: isolate;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   width: 100%;
   overflow: hidden;
 }
