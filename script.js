@@ -252,15 +252,22 @@ function setupMenuAccordion() {
     toggle.setAttribute('aria-expanded', 'true');
     setPanelHeight(panel, true);
     
-    const onEnd = (event) => {
-      if (event.target !== panel || event.propertyName !== 'max-height') return;
-      panel.removeEventListener('transitionend', onEnd);
-      // Allow content reflow (e.g. font load) without clipping while open
+    const unlockHeight = () => {
       if (card.classList.contains('is-open')) {
         panel.style.maxHeight = 'none';
       }
     };
-    panel.addEventListener('transitionend', onEnd);
+    
+    if (prefersReducedMotion()) {
+      unlockHeight();
+    } else {
+      const onEnd = (event) => {
+        if (event.target !== panel || event.propertyName !== 'max-height') return;
+        panel.removeEventListener('transitionend', onEnd);
+        unlockHeight();
+      };
+      panel.addEventListener('transitionend', onEnd);
+    }
     
     // Align the opened card near the top of the viewport
     const scrollBehavior = prefersReducedMotion() ? 'auto' : 'smooth';
