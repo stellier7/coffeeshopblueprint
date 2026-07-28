@@ -4,6 +4,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   loadConfigData();
   setupNavigation();
+  setupMenuAccordion();
   setupLightbox();
   setupScrollAnimations();
   setupHeroAnimations();
@@ -88,7 +89,8 @@ function populateHero() {
   const heroSubheadline = document.getElementById('hero-subheadline');
   const heroCTA = document.getElementById('hero-cta');
   
-  heroImage.style.backgroundImage = `url('${SHOP.hero.image}')`;
+  heroImage.src = SHOP.hero.image;
+  heroImage.alt = SHOP.hero.headline || SHOP.name;
   heroHeadline.textContent = SHOP.hero.headline;
   heroSubheadline.textContent = SHOP.hero.subheadline;
   heroCTA.textContent = SHOP.hero.ctaText;
@@ -110,19 +112,55 @@ function populateAbout() {
 }
 
 // ============================================================
-// Populate Menu Section
+// Populate Menu Section (accordion category cards)
 // ============================================================
 function populateMenu() {
   const menuGrid = document.getElementById('menu-grid');
   
-  SHOP.menu.forEach(category => {
-    const categoryDiv = document.createElement('div');
+  SHOP.menu.forEach((category, index) => {
+    const categoryDiv = document.createElement('article');
     categoryDiv.className = 'menu-category fade-in';
     
-    const categoryTitle = document.createElement('h3');
+    const panelId = `menu-panel-${index}`;
+    const toggleId = `menu-toggle-${index}`;
+    
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'menu-category-toggle';
+    toggle.id = toggleId;
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-controls', panelId);
+    
+    const categoryTitle = document.createElement('span');
     categoryTitle.className = 'menu-category-title';
     categoryTitle.textContent = category.category;
-    categoryDiv.appendChild(categoryTitle);
+    
+    const chevron = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    chevron.setAttribute('class', 'menu-category-chevron');
+    chevron.setAttribute('viewBox', '0 0 24 24');
+    chevron.setAttribute('aria-hidden', 'true');
+    chevron.setAttribute('focusable', 'false');
+    const chevronPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    chevronPath.setAttribute('d', 'M6 9l6 6 6-6');
+    chevronPath.setAttribute('fill', 'none');
+    chevronPath.setAttribute('stroke', 'currentColor');
+    chevronPath.setAttribute('stroke-width', '2.25');
+    chevronPath.setAttribute('stroke-linecap', 'round');
+    chevronPath.setAttribute('stroke-linejoin', 'round');
+    chevron.appendChild(chevronPath);
+    
+    toggle.appendChild(categoryTitle);
+    toggle.appendChild(chevron);
+    categoryDiv.appendChild(toggle);
+    
+    const panel = document.createElement('div');
+    panel.className = 'menu-category-panel';
+    panel.id = panelId;
+    panel.setAttribute('role', 'region');
+    panel.setAttribute('aria-labelledby', toggleId);
+    
+    const itemsWrap = document.createElement('div');
+    itemsWrap.className = 'menu-category-items';
     
     category.items.forEach(item => {
       const itemDiv = document.createElement('div');
@@ -135,24 +173,248 @@ function populateMenu() {
       itemName.className = 'menu-item-name';
       itemName.textContent = item.name;
       
+      const itemDots = document.createElement('span');
+      itemDots.className = 'menu-item-dots';
+      itemDots.setAttribute('aria-hidden', 'true');
+      
       const itemPrice = document.createElement('span');
       itemPrice.className = 'menu-item-price';
-      itemPrice.textContent = `$${item.price}`;
+      itemPrice.textContent = item.price;
       
       itemHeader.appendChild(itemName);
+      itemHeader.appendChild(itemDots);
       itemHeader.appendChild(itemPrice);
       
-      const itemDesc = document.createElement('p');
-      itemDesc.className = 'menu-item-desc';
-      itemDesc.textContent = item.desc;
-      
       itemDiv.appendChild(itemHeader);
-      itemDiv.appendChild(itemDesc);
-      categoryDiv.appendChild(itemDiv);
+      
+      if (item.desc) {
+        const itemDesc = document.createElement('p');
+        itemDesc.className = 'menu-item-desc';
+        itemDesc.textContent = item.desc;
+        itemDiv.appendChild(itemDesc);
+      }
+      
+      itemsWrap.appendChild(itemDiv);
     });
     
+    panel.appendChild(itemsWrap);
+    categoryDiv.appendChild(panel);
     menuGrid.appendChild(categoryDiv);
   });
+}
+
+// ============================================================
+// Menu Accordion — single-open cards with smooth expand/collapse
+// ============================================================
+function setupMenuAccordion() {
+  const menuGrid = document.getElementById('menu-grid');
+  if (!menuGrid) return;
+  
+  const cards = Array.from(menuGrid.querySelectorAll('.menu-category'));
+  if (!cards.length) return;
+  
+  const navbar = document.getElementById('navbar');
+  let animating = false;
+  let cachedSafeAreaTop = null;
+  
+  const prefersReducedMotion = () =>
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
+  const isMobileViewport = () =>
+    window.matchMedia('(max-width: 768px)').matches;
+  
+  function readSafeAreaTop() {
+    if (cachedSafeAreaTop != null) return cachedSafeAreaTop;
+    const probe = document.createElement('div');
+    probe.style.cssText =
+      'position:fixed;top:0;left:0;visibility:hidden;pointer-events:none;' +
+      'padding-top:env(safe-area-inset-top,0px);';
+    document.body.appendChild(probe);
+    cachedSafeAreaTop = parseFloat(getComputedStyle(probe).paddingTop) || 0;
+    probe.remove();
+    return cachedSafeAreaTop;
+  }
+  
+  function setPanelHeight(panel, open) {
+    if (open) {
+      panel.style.maxHeight = `${panel.scrollHeight}px`;
+    } else {
+      panel.style.maxHeight = '0px';
+    }
+  }
+  
+  function waitForPanelTransition(panel) {
+    return new Promise(resolve => {
+      if (prefersReducedMotion()) {
+        resolve();
+        return;
+      }
+      
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        panel.removeEventListener('transitionend', onEnd);
+        resolve();
+      };
+      
+      const onEnd = (event) => {
+        if (event.target !== panel || event.propertyName !== 'max-height') return;
+        finish();
+      };
+      
+      panel.addEventListener('transitionend', onEnd);
+      // Safety net if transitionend doesn't fire
+      setTimeout(finish, 450);
+    });
+  }
+  
+  function collapseCard(card) {
+    const toggle = card.querySelector('.menu-category-toggle');
+    const panel = card.querySelector('.menu-category-panel');
+    if (!toggle || !panel) return null;
+    
+    card.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    
+    // Snap from 'none' to pixel height so the collapse can animate
+    if (panel.style.maxHeight === 'none' || !panel.style.maxHeight) {
+      panel.style.maxHeight = `${panel.scrollHeight}px`;
+      void panel.offsetHeight;
+    }
+    setPanelHeight(panel, false);
+    return panel;
+  }
+  
+  function expandCard(card) {
+    const toggle = card.querySelector('.menu-category-toggle');
+    const panel = card.querySelector('.menu-category-panel');
+    if (!toggle || !panel) return null;
+    
+    card.classList.add('is-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    setPanelHeight(panel, true);
+    
+    const unlockHeight = () => {
+      if (card.classList.contains('is-open')) {
+        panel.style.maxHeight = 'none';
+      }
+    };
+    
+    if (prefersReducedMotion()) {
+      unlockHeight();
+    } else {
+      const onEnd = (event) => {
+        if (event.target !== panel || event.propertyName !== 'max-height') return;
+        panel.removeEventListener('transitionend', onEnd);
+        unlockHeight();
+      };
+      panel.addEventListener('transitionend', onEnd);
+    }
+    
+    return panel;
+  }
+  
+  // How far below the visible top (under Safari chrome) the card should sit
+  function getPinInset() {
+    const safeArea = readSafeAreaTop();
+    const visualOffset = window.visualViewport ? window.visualViewport.offsetTop : 0;
+    // Keep the category header clear of Safari's URL / status chrome
+    const browserChromePad = 16;
+    return safeArea + visualOffset + browserChromePad;
+  }
+  
+  // Keep site header tucked away while a menu card is open/moving on mobile,
+  // so scroll-driven navbar show/hide cannot cover the category title.
+  function lockNavbarAway() {
+    if (!isMobileViewport()) return;
+    document.body.classList.add('menu-nav-locked');
+    if (navbar) navbar.classList.add('navbar-hidden');
+  }
+  
+  function unlockNavbar() {
+    document.body.classList.remove('menu-nav-locked');
+  }
+  
+  function syncNavbarLock() {
+    const anyOpen = cards.some(card => card.classList.contains('is-open'));
+    if (anyOpen && isMobileViewport()) {
+      lockNavbarAway();
+    } else {
+      unlockNavbar();
+    }
+  }
+  
+  // Pin open card just under the visible top of the screen (mobile only).
+  function pinCardToTop(card) {
+    if (!isMobileViewport()) return;
+    
+    lockNavbarAway();
+    
+    const inset = getPinInset();
+    const top = Math.round(
+      window.scrollY + card.getBoundingClientRect().top - inset
+    );
+    window.scrollTo({
+      top: Math.max(0, top),
+      behavior: prefersReducedMotion() ? 'auto' : 'smooth'
+    });
+  }
+  
+  async function openCard(card) {
+    // Lock before any expand/collapse/scroll so the header cannot pop back in
+    lockNavbarAway();
+    
+    const previous = cards.find(c => c !== card && c.classList.contains('is-open'));
+    
+    if (previous) {
+      const prevPanel = collapseCard(previous);
+      if (prevPanel) await waitForPanelTransition(prevPanel);
+    }
+    
+    // Expand in place first (under the tap), then glide to the top
+    const panel = expandCard(card);
+    if (panel) await waitForPanelTransition(panel);
+    
+    pinCardToTop(card);
+    syncNavbarLock();
+  }
+  
+  cards.forEach(card => {
+    const toggle = card.querySelector('.menu-category-toggle');
+    const panel = card.querySelector('.menu-category-panel');
+    if (!toggle || !panel) return;
+    
+    panel.style.maxHeight = '0px';
+    
+    toggle.addEventListener('click', async () => {
+      if (animating) return;
+      animating = true;
+      
+      try {
+        if (card.classList.contains('is-open')) {
+          const closing = collapseCard(card);
+          if (closing) await waitForPanelTransition(closing);
+          syncNavbarLock();
+        } else {
+          await openCard(card);
+        }
+      } finally {
+        animating = false;
+      }
+    });
+  });
+  
+  window.addEventListener('resize', () => {
+    cachedSafeAreaTop = null;
+    syncNavbarLock();
+    cards.forEach(card => {
+      if (!card.classList.contains('is-open')) return;
+      const panel = card.querySelector('.menu-category-panel');
+      if (!panel || panel.style.maxHeight === 'none') return;
+      setPanelHeight(panel, true);
+    });
+  }, { passive: true });
 }
 
 // ============================================================
@@ -236,7 +498,9 @@ function populateLocation() {
   
   const phoneLink = document.getElementById('phone-link');
   phoneLink.textContent = SHOP.phone;
-  phoneLink.href = `tel:${SHOP.phone.replace(/\D/g, '')}`;
+  phoneLink.href = `https://wa.me/${SHOP.phone.replace(/\D/g, '')}`;
+  phoneLink.target = '_blank';
+  phoneLink.rel = 'noopener';
   
   const emailLink = document.getElementById('email-link');
   emailLink.textContent = SHOP.email;
@@ -301,6 +565,15 @@ function setupNavigation() {
       navbar.classList.add('scrolled');
     } else {
       navbar.classList.remove('scrolled');
+    }
+    
+    // Menu accordion owns the header while a category is open on mobile —
+    // don't let scroll-up bring it back over the category title.
+    if (document.body.classList.contains('menu-nav-locked')) {
+      navbar.classList.add('navbar-hidden');
+      lastScrollY = currentScrollY;
+      ticking = false;
+      return;
     }
     
     // Hide/show navbar based on scroll direction
@@ -471,113 +744,15 @@ function setupScrollAnimations() {
 }
 
 // ============================================================
-// Hero Animations - Dramatic Entrance, Parallax & Scroll-Out
+// Hero Animations - Load entrance only (no scroll / parallax)
 // ============================================================
 function setupHeroAnimations() {
   const hero = document.getElementById('hero');
-  const heroImage = document.getElementById('hero-image');
-  const heroContent = document.querySelector('.hero-content');
-  const heroOverlay = document.querySelector('.hero-overlay');
-  
-  // Check if user prefers reduced motion
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  
-  // Trigger dramatic entrance animation on load
+  if (!hero) return;
+
+  // Trigger content entrance on load. Image stays static — no scroll
+  // listeners, transforms, will-change, or parallax of any kind.
   setTimeout(() => {
     hero.classList.add('hero-animate-in');
-    
-    // Add entrance-complete class after all animations finish
-    // Longest animation is 1.1s with 0.9s delay = 2s total
-    if (!prefersReducedMotion) {
-      setTimeout(() => {
-        hero.classList.add('hero-entrance-complete');
-      }, 2100);
-    }
   }, 100);
-  
-  // Exit early if user prefers reduced motion (skip parallax and scroll effects)
-  if (prefersReducedMotion) {
-    // Show all content immediately
-    heroImage.style.opacity = '1';
-    heroImage.style.transform = 'scale(1.1)';
-    heroOverlay.style.opacity = '1';
-    hero.classList.add('hero-entrance-complete');
-    return;
-  }
-  
-  // Variables for performance optimization
-  let ticking = false;
-  let lastScrollY = window.scrollY;
-  
-  // Scroll effect - NO parallax, just content fade
-  function updateHeroOnScroll() {
-    const scrollY = window.scrollY;
-    const heroHeight = hero.offsetHeight;
-    const scrollProgress = Math.min(scrollY / heroHeight, 1);
-    
-    // NO parallax - image stays completely fixed via CSS
-    // Only fade out content as user scrolls
-    
-    const fadeStart = 0.3;
-    const fadeProgress = Math.max((scrollProgress - fadeStart) / (1 - fadeStart), 0);
-    
-    if (scrollProgress > fadeStart) {
-      const opacity = 1 - (fadeProgress * 0.6);
-      const scale = 1 - (fadeProgress * 0.08);
-      
-      heroContent.style.opacity = opacity;
-      heroContent.style.transform = `scale(${scale}) translateY(${fadeProgress * 30}px)`;
-    } else {
-      heroContent.style.opacity = '';
-      heroContent.style.transform = '';
-    }
-    
-    ticking = false;
-  }
-  
-  // Optimized scroll handler with requestAnimationFrame
-  function onScroll() {
-    lastScrollY = window.scrollY;
-    
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        updateHeroOnScroll();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }
-  
-  // Throttled scroll listener for better performance
-  let scrollTimeout;
-  window.addEventListener('scroll', () => {
-    if (scrollTimeout) {
-      window.cancelAnimationFrame(scrollTimeout);
-    }
-    scrollTimeout = window.requestAnimationFrame(onScroll);
-  }, { passive: true });
-  
-  // Initial call to set up proper state
-  updateHeroOnScroll();
-  
-  // Observe hero section to optimize when it's out of view
-  const heroObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) {
-        // Hero is out of view, can skip updates
-        hero.style.willChange = 'auto';
-        heroImage.style.willChange = 'auto';
-        heroContent.style.willChange = 'auto';
-      } else {
-        // Hero is in view, optimize for transforms
-        hero.style.willChange = 'opacity, transform';
-        heroImage.style.willChange = 'transform';
-        heroContent.style.willChange = 'transform, opacity';
-      }
-    });
-  }, {
-    rootMargin: '100px 0px 100px 0px'
-  });
-  
-  heroObserver.observe(hero);
 }
