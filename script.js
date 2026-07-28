@@ -215,12 +215,25 @@ function setupMenuAccordion() {
   
   const navbar = document.getElementById('navbar');
   let animating = false;
+  let cachedSafeAreaTop = null;
   
   const prefersReducedMotion = () =>
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   
   const isMobileViewport = () =>
     window.matchMedia('(max-width: 768px)').matches;
+  
+  function readSafeAreaTop() {
+    if (cachedSafeAreaTop != null) return cachedSafeAreaTop;
+    const probe = document.createElement('div');
+    probe.style.cssText =
+      'position:fixed;top:0;left:0;visibility:hidden;pointer-events:none;' +
+      'padding-top:env(safe-area-inset-top,0px);';
+    document.body.appendChild(probe);
+    cachedSafeAreaTop = parseFloat(getComputedStyle(probe).paddingTop) || 0;
+    probe.remove();
+    return cachedSafeAreaTop;
+  }
   
   function setPanelHeight(panel, open) {
     if (open) {
@@ -302,16 +315,26 @@ function setupMenuAccordion() {
     return panel;
   }
   
-  // Pin card flush to the top of the viewport (mobile only).
-  // Measured after any previous card has fully collapsed so layout is stable —
-  // one scroll, no corrective re-scroll.
+  // How far below the visible top (under Safari chrome) the card should sit
+  function getPinInset() {
+    const safeArea = readSafeAreaTop();
+    const visualOffset = window.visualViewport ? window.visualViewport.offsetTop : 0;
+    // Keep the category header clear of Safari's URL / status chrome
+    const browserChromePad = 16;
+    return safeArea + visualOffset + browserChromePad;
+  }
+  
+  // Pin open card just under the visible top of the screen (mobile only).
   function pinCardToTop(card) {
     if (!isMobileViewport()) return;
     
-    // Free the full screen for long category lists
+    // Free vertical space for long category lists
     if (navbar) navbar.classList.add('navbar-hidden');
     
-    const top = Math.round(window.scrollY + card.getBoundingClientRect().top);
+    const inset = getPinInset();
+    const top = Math.round(
+      window.scrollY + card.getBoundingClientRect().top - inset
+    );
     window.scrollTo({
       top: Math.max(0, top),
       behavior: prefersReducedMotion() ? 'auto' : 'smooth'
@@ -326,9 +349,11 @@ function setupMenuAccordion() {
       if (prevPanel) await waitForPanelTransition(prevPanel);
     }
     
-    // Layout settled — pin header to top, then expand downward
+    // Expand in place first (under the tap), then glide to the top
+    const panel = expandCard(card);
+    if (panel) await waitForPanelTransition(panel);
+    
     pinCardToTop(card);
-    expandCard(card);
   }
   
   cards.forEach(card => {
@@ -356,6 +381,7 @@ function setupMenuAccordion() {
   });
   
   window.addEventListener('resize', () => {
+    cachedSafeAreaTop = null;
     cards.forEach(card => {
       if (!card.classList.contains('is-open')) return;
       const panel = card.querySelector('.menu-category-panel');

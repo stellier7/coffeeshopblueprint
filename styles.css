@@ -1909,8 +1909,8 @@ p {
   .menu-category {
     width: 100%;
     max-width: 100%;
-    /* Flush to viewport top when JS pins an open card (nav hides) */
-    scroll-margin-top: 0;
+    /* Leave room under Safari chrome when an open card is pinned */
+    scroll-margin-top: max(16px, env(safe-area-inset-top, 0px));
   }
   
   .menu-category-toggle {
