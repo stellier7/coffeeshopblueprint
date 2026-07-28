@@ -109,19 +109,7 @@ button:focus-visible {
     scroll-behavior: auto !important;
   }
   
-  /* Override hero parallax and float for reduced motion */
-  .hero-image,
-  .hero-content,
-  .hero-overlay {
-    will-change: auto !important;
-  }
-  
-  .hero-entrance-complete .hero-content {
-    animation: none !important;
-  }
-  
-  /* Keep entrance animations instant but visible */
-  .hero-animate-in .hero-image,
+  /* Hero: show content immediately; image stays static */
   .hero-animate-in .hero-overlay,
   .hero-animate-in .hero-headline,
   .hero-animate-in .hero-subheadline,
@@ -129,11 +117,9 @@ button:focus-visible {
     animation-duration: 0.01ms !important;
   }
   
-  /* Show content immediately in reduced motion */
   .hero-headline,
   .hero-subheadline,
   .hero-content .btn,
-  .hero-image,
   .hero-overlay {
     opacity: 1 !important;
     transform: none !important;
@@ -512,7 +498,7 @@ p {
 }
 
 /* ============================================================
-   Hero Section - Smooth Parallax Effect
+   Hero Section - Static image, content scrolls with the page
    ============================================================ */
 .hero {
   position: relative;
@@ -523,39 +509,32 @@ p {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  z-index: 1;
-  isolation: isolate;
 }
 
 .hero-image {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 1;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   z-index: 0;
-  transform: none !important;
-  animation: none !important;
+  pointer-events: none;
 }
 
 .hero-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background: linear-gradient(
     135deg,
     rgba(0, 0, 0, 0.6) 0%,
     rgba(0, 0, 0, 0.4) 50%,
     rgba(0, 0, 0, 0.3) 100%
   );
-  opacity: 1;
   z-index: 1;
+  pointer-events: none;
 }
 
 .hero-content {
@@ -565,7 +544,6 @@ p {
   color: var(--white);
   max-width: 900px;
   padding: 2rem;
-  will-change: transform, opacity;
 }
 
 .hero-headline {
@@ -589,11 +567,7 @@ p {
   transform: translateY(60px) scale(0.9);
 }
 
-/* Dramatic entrance animations with directional variety */
-.hero-animate-in .hero-image {
-  animation: heroImageReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0s both;
-}
-
+/* Load-time entrance only — no scroll-linked motion */
 .hero-animate-in .hero-overlay {
   animation: heroOverlayFade 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
 }
@@ -608,18 +582,6 @@ p {
 
 .hero-animate-in .hero-content .btn {
   animation: heroSlideFromBottom 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both;
-}
-
-/* Keyframe animations for dramatic reveals */
-@keyframes heroImageReveal {
-  from {
-    opacity: 0;
-    transform: scale(1.15);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1.1);
-  }
 }
 
 @keyframes heroOverlayFade {
@@ -661,20 +623,6 @@ p {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
-  }
-}
-
-/* Subtle idle float animation - only starts AFTER entrance completes */
-.hero-entrance-complete .hero-content {
-  animation: subtleFloat 6s ease-in-out infinite;
-}
-
-@keyframes subtleFloat {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
   }
 }
 
