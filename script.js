@@ -213,40 +213,70 @@ function setupMenuAccordion() {
   const cards = Array.from(menuGrid.querySelectorAll('.menu-category'));
   if (!cards.length) return;
   
+  const navbar = document.getElementById('navbar');
+  let animating = false;
+  
   const prefersReducedMotion = () =>
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   
+  const isMobileViewport = () =>
+    window.matchMedia('(max-width: 768px)').matches;
+  
   function setPanelHeight(panel, open) {
     if (open) {
-      // Measure content so the CSS max-height transition lands exactly
       panel.style.maxHeight = `${panel.scrollHeight}px`;
     } else {
       panel.style.maxHeight = '0px';
     }
   }
   
+  function waitForPanelTransition(panel) {
+    return new Promise(resolve => {
+      if (prefersReducedMotion()) {
+        resolve();
+        return;
+      }
+      
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        panel.removeEventListener('transitionend', onEnd);
+        resolve();
+      };
+      
+      const onEnd = (event) => {
+        if (event.target !== panel || event.propertyName !== 'max-height') return;
+        finish();
+      };
+      
+      panel.addEventListener('transitionend', onEnd);
+      // Safety net if transitionend doesn't fire
+      setTimeout(finish, 450);
+    });
+  }
+  
   function collapseCard(card) {
     const toggle = card.querySelector('.menu-category-toggle');
     const panel = card.querySelector('.menu-category-panel');
-    if (!toggle || !panel) return;
+    if (!toggle || !panel) return null;
     
     card.classList.remove('is-open');
     toggle.setAttribute('aria-expanded', 'false');
     
-    // If already at auto height from a prior expand, snap to px first
-    // so the collapse transition can animate from the current height
+    // Snap from 'none' to pixel height so the collapse can animate
     if (panel.style.maxHeight === 'none' || !panel.style.maxHeight) {
       panel.style.maxHeight = `${panel.scrollHeight}px`;
-      // Force reflow before collapsing
       void panel.offsetHeight;
     }
     setPanelHeight(panel, false);
+    return panel;
   }
   
   function expandCard(card) {
     const toggle = card.querySelector('.menu-category-toggle');
     const panel = card.querySelector('.menu-category-panel');
-    if (!toggle || !panel) return;
+    if (!toggle || !panel) return null;
     
     card.classList.add('is-open');
     toggle.setAttribute('aria-expanded', 'true');
@@ -269,11 +299,36 @@ function setupMenuAccordion() {
       panel.addEventListener('transitionend', onEnd);
     }
     
-    // Align the opened card near the top of the viewport
-    const scrollBehavior = prefersReducedMotion() ? 'auto' : 'smooth';
-    requestAnimationFrame(() => {
-      card.scrollIntoView({ behavior: scrollBehavior, block: 'start' });
+    return panel;
+  }
+  
+  // Pin card flush to the top of the viewport (mobile only).
+  // Measured after any previous card has fully collapsed so layout is stable —
+  // one scroll, no corrective re-scroll.
+  function pinCardToTop(card) {
+    if (!isMobileViewport()) return;
+    
+    // Free the full screen for long category lists
+    if (navbar) navbar.classList.add('navbar-hidden');
+    
+    const top = Math.round(window.scrollY + card.getBoundingClientRect().top);
+    window.scrollTo({
+      top: Math.max(0, top),
+      behavior: prefersReducedMotion() ? 'auto' : 'smooth'
     });
+  }
+  
+  async function openCard(card) {
+    const previous = cards.find(c => c !== card && c.classList.contains('is-open'));
+    
+    if (previous) {
+      const prevPanel = collapseCard(previous);
+      if (prevPanel) await waitForPanelTransition(prevPanel);
+    }
+    
+    // Layout settled — pin header to top, then expand downward
+    pinCardToTop(card);
+    expandCard(card);
   }
   
   cards.forEach(card => {
@@ -281,28 +336,25 @@ function setupMenuAccordion() {
     const panel = card.querySelector('.menu-category-panel');
     if (!toggle || !panel) return;
     
-    // All cards start collapsed
     panel.style.maxHeight = '0px';
     
-    toggle.addEventListener('click', () => {
-      const isOpen = card.classList.contains('is-open');
+    toggle.addEventListener('click', async () => {
+      if (animating) return;
+      animating = true;
       
-      // Close whichever card is currently open
-      cards.forEach(other => {
-        if (other !== card && other.classList.contains('is-open')) {
-          collapseCard(other);
+      try {
+        if (card.classList.contains('is-open')) {
+          const closing = collapseCard(card);
+          if (closing) await waitForPanelTransition(closing);
+        } else {
+          await openCard(card);
         }
-      });
-      
-      if (isOpen) {
-        collapseCard(card);
-      } else {
-        expandCard(card);
+      } finally {
+        animating = false;
       }
     });
   });
   
-  // Keep open panel height in sync if viewport resizes
   window.addEventListener('resize', () => {
     cards.forEach(card => {
       if (!card.classList.contains('is-open')) return;

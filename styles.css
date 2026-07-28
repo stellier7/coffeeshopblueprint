@@ -828,7 +828,6 @@ p {
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(201, 162, 39, 0.1);
-  scroll-margin-top: 5.5rem;
 }
 
 /* Dramatic entrance state - hidden by default */
@@ -1910,6 +1909,8 @@ p {
   .menu-category {
     width: 100%;
     max-width: 100%;
+    /* Flush to viewport top when JS pins an open card (nav hides) */
+    scroll-margin-top: 0;
   }
   
   .menu-category-toggle {
