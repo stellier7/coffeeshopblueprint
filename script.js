@@ -82,6 +82,11 @@ function populateNavigation() {
 // ============================================================
 // Populate Hero Section
 // ============================================================
+function neonFirstLetter(text) {
+  if (!text) return '';
+  return `<span class="neon-letter">${text.charAt(0)}</span>${text.slice(1)}`;
+}
+
 function populateHero() {
   const heroImage = document.getElementById('hero-image');
   const heroHeadline = document.getElementById('hero-headline');
@@ -89,8 +94,9 @@ function populateHero() {
   const heroCTA = document.getElementById('hero-cta');
   
   heroImage.style.backgroundImage = `url('${SHOP.hero.image}')`;
-  heroHeadline.textContent = SHOP.hero.headline;
-  heroSubheadline.textContent = SHOP.hero.subheadline;
+  // Option A: neon on first capital only (N / A)
+  heroHeadline.innerHTML = neonFirstLetter(SHOP.hero.headline);
+  heroSubheadline.innerHTML = neonFirstLetter(SHOP.hero.subheadline);
   heroCTA.textContent = SHOP.hero.ctaText;
   heroCTA.href = SHOP.hero.ctaLink;
 }
@@ -103,7 +109,7 @@ function populateAbout() {
   const aboutText = document.getElementById('about-text');
   const aboutImage = document.getElementById('about-image');
   
-  aboutTitle.textContent = SHOP.about.title;
+  aboutTitle.innerHTML = neonFirstLetter(SHOP.about.title);
   aboutText.textContent = SHOP.about.text;
   aboutImage.src = SHOP.about.image;
   aboutImage.alt = `${SHOP.name} interior`;

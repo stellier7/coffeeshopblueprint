@@ -272,6 +272,15 @@ p {
   text-align: center;
 }
 
+/* Neon pink accent on select capitals */
+.neon-letter {
+  color: var(--accent);
+  text-shadow:
+    0 0 6px rgba(255, 20, 147, 0.9),
+    0 0 16px rgba(255, 20, 147, 0.55),
+    0 0 32px rgba(255, 20, 147, 0.35);
+}
+
 .btn {
   display: inline-block;
   padding: 1rem 2.5rem;
