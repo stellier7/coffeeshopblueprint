@@ -26,7 +26,7 @@ const SHOP = {
   
   // Hero Section
   hero: {
-    image: "images/hero.jpg",
+    image: "images/hero.jpeg",
     headline: "Neon Café",
     subheadline: "Ambiente. Comunidad. Cafe",
     ctaText: "Ver Menú",
@@ -37,7 +37,7 @@ const SHOP = {
   about: {
     title: "Nuestra Historia",
     text: "Neon Café es más que un lugar para tomar café - es un espacio vibrante donde la comunidad se encuentra. Ubicados en el corazón de Tegucigalpa, ofrecemos una experiencia única que combina el arte del café excepcional con un ambiente moderno y acogedor. Desde nuestras bebidas artesanales hasta nuestros postres hechos en casa, cada detalle está diseñado para crear momentos memorables. Ven y descubre por qué Neon Café se ha convertido en el punto de encuentro favorito de la ciudad.",
-    image: "images/about.jpg"
+    image: "images/about.jpeg"
   },
   
   // Menu - Organized by category (extracted from menu images)
@@ -172,12 +172,12 @@ const SHOP = {
   
   // Gallery - Image URLs (your actual Neon Café photos)
   gallery: [
-    "images/gallery/gallery-1.jpg",
-    "images/gallery/gallery-2.jpg",
-    "images/gallery/gallery-3.jpg",
-    "images/gallery/gallery-4.jpg",
-    "images/gallery/gallery-5.jpg",
-    "images/gallery/gallery-6.jpg"
+    "images/gallery/gallery-1.jpeg",
+    "images/gallery/gallery-2.jpeg",
+    "images/gallery/gallery-3.jpeg",
+    "images/gallery/gallery-4.jpeg",
+    "images/gallery/gallery-5.jpeg",
+    "images/gallery/gallery-6.jpeg"
   ],
   
   // Hours
