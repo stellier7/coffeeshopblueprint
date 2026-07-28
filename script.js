@@ -324,12 +324,32 @@ function setupMenuAccordion() {
     return safeArea + visualOffset + browserChromePad;
   }
   
+  // Keep site header tucked away while a menu card is open/moving on mobile,
+  // so scroll-driven navbar show/hide cannot cover the category title.
+  function lockNavbarAway() {
+    if (!isMobileViewport()) return;
+    document.body.classList.add('menu-nav-locked');
+    if (navbar) navbar.classList.add('navbar-hidden');
+  }
+  
+  function unlockNavbar() {
+    document.body.classList.remove('menu-nav-locked');
+  }
+  
+  function syncNavbarLock() {
+    const anyOpen = cards.some(card => card.classList.contains('is-open'));
+    if (anyOpen && isMobileViewport()) {
+      lockNavbarAway();
+    } else {
+      unlockNavbar();
+    }
+  }
+  
   // Pin open card just under the visible top of the screen (mobile only).
   function pinCardToTop(card) {
     if (!isMobileViewport()) return;
     
-    // Free vertical space for long category lists
-    if (navbar) navbar.classList.add('navbar-hidden');
+    lockNavbarAway();
     
     const inset = getPinInset();
     const top = Math.round(
@@ -342,6 +362,9 @@ function setupMenuAccordion() {
   }
   
   async function openCard(card) {
+    // Lock before any expand/collapse/scroll so the header cannot pop back in
+    lockNavbarAway();
+    
     const previous = cards.find(c => c !== card && c.classList.contains('is-open'));
     
     if (previous) {
@@ -354,6 +377,7 @@ function setupMenuAccordion() {
     if (panel) await waitForPanelTransition(panel);
     
     pinCardToTop(card);
+    syncNavbarLock();
   }
   
   cards.forEach(card => {
@@ -371,6 +395,7 @@ function setupMenuAccordion() {
         if (card.classList.contains('is-open')) {
           const closing = collapseCard(card);
           if (closing) await waitForPanelTransition(closing);
+          syncNavbarLock();
         } else {
           await openCard(card);
         }
@@ -382,6 +407,7 @@ function setupMenuAccordion() {
   
   window.addEventListener('resize', () => {
     cachedSafeAreaTop = null;
+    syncNavbarLock();
     cards.forEach(card => {
       if (!card.classList.contains('is-open')) return;
       const panel = card.querySelector('.menu-category-panel');
@@ -537,6 +563,15 @@ function setupNavigation() {
       navbar.classList.add('scrolled');
     } else {
       navbar.classList.remove('scrolled');
+    }
+    
+    // Menu accordion owns the header while a category is open on mobile —
+    // don't let scroll-up bring it back over the category title.
+    if (document.body.classList.contains('menu-nav-locked')) {
+      navbar.classList.add('navbar-hidden');
+      lastScrollY = currentScrollY;
+      ticking = false;
+      return;
     }
     
     // Hide/show navbar based on scroll direction
