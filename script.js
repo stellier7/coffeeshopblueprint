@@ -4,6 +4,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   loadConfigData();
   setupNavigation();
+  setupMenuAccordion();
   setupLightbox();
   setupScrollAnimations();
   setupHeroAnimations();
@@ -111,19 +112,55 @@ function populateAbout() {
 }
 
 // ============================================================
-// Populate Menu Section
+// Populate Menu Section (accordion category cards)
 // ============================================================
 function populateMenu() {
   const menuGrid = document.getElementById('menu-grid');
   
-  SHOP.menu.forEach(category => {
-    const categoryDiv = document.createElement('div');
+  SHOP.menu.forEach((category, index) => {
+    const categoryDiv = document.createElement('article');
     categoryDiv.className = 'menu-category fade-in';
     
-    const categoryTitle = document.createElement('h3');
+    const panelId = `menu-panel-${index}`;
+    const toggleId = `menu-toggle-${index}`;
+    
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'menu-category-toggle';
+    toggle.id = toggleId;
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-controls', panelId);
+    
+    const categoryTitle = document.createElement('span');
     categoryTitle.className = 'menu-category-title';
     categoryTitle.textContent = category.category;
-    categoryDiv.appendChild(categoryTitle);
+    
+    const chevron = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    chevron.setAttribute('class', 'menu-category-chevron');
+    chevron.setAttribute('viewBox', '0 0 24 24');
+    chevron.setAttribute('aria-hidden', 'true');
+    chevron.setAttribute('focusable', 'false');
+    const chevronPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    chevronPath.setAttribute('d', 'M6 9l6 6 6-6');
+    chevronPath.setAttribute('fill', 'none');
+    chevronPath.setAttribute('stroke', 'currentColor');
+    chevronPath.setAttribute('stroke-width', '2.25');
+    chevronPath.setAttribute('stroke-linecap', 'round');
+    chevronPath.setAttribute('stroke-linejoin', 'round');
+    chevron.appendChild(chevronPath);
+    
+    toggle.appendChild(categoryTitle);
+    toggle.appendChild(chevron);
+    categoryDiv.appendChild(toggle);
+    
+    const panel = document.createElement('div');
+    panel.className = 'menu-category-panel';
+    panel.id = panelId;
+    panel.setAttribute('role', 'region');
+    panel.setAttribute('aria-labelledby', toggleId);
+    
+    const itemsWrap = document.createElement('div');
+    itemsWrap.className = 'menu-category-items';
     
     category.items.forEach(item => {
       const itemDiv = document.createElement('div');
@@ -136,24 +173,137 @@ function populateMenu() {
       itemName.className = 'menu-item-name';
       itemName.textContent = item.name;
       
+      const itemDots = document.createElement('span');
+      itemDots.className = 'menu-item-dots';
+      itemDots.setAttribute('aria-hidden', 'true');
+      
       const itemPrice = document.createElement('span');
       itemPrice.className = 'menu-item-price';
-      itemPrice.textContent = `$${item.price}`;
+      itemPrice.textContent = item.price;
       
       itemHeader.appendChild(itemName);
+      itemHeader.appendChild(itemDots);
       itemHeader.appendChild(itemPrice);
       
-      const itemDesc = document.createElement('p');
-      itemDesc.className = 'menu-item-desc';
-      itemDesc.textContent = item.desc;
-      
       itemDiv.appendChild(itemHeader);
-      itemDiv.appendChild(itemDesc);
-      categoryDiv.appendChild(itemDiv);
+      
+      if (item.desc) {
+        const itemDesc = document.createElement('p');
+        itemDesc.className = 'menu-item-desc';
+        itemDesc.textContent = item.desc;
+        itemDiv.appendChild(itemDesc);
+      }
+      
+      itemsWrap.appendChild(itemDiv);
     });
     
+    panel.appendChild(itemsWrap);
+    categoryDiv.appendChild(panel);
     menuGrid.appendChild(categoryDiv);
   });
+}
+
+// ============================================================
+// Menu Accordion — single-open cards with smooth expand/collapse
+// ============================================================
+function setupMenuAccordion() {
+  const menuGrid = document.getElementById('menu-grid');
+  if (!menuGrid) return;
+  
+  const cards = Array.from(menuGrid.querySelectorAll('.menu-category'));
+  if (!cards.length) return;
+  
+  const prefersReducedMotion = () =>
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
+  function setPanelHeight(panel, open) {
+    if (open) {
+      // Measure content so the CSS max-height transition lands exactly
+      panel.style.maxHeight = `${panel.scrollHeight}px`;
+    } else {
+      panel.style.maxHeight = '0px';
+    }
+  }
+  
+  function collapseCard(card) {
+    const toggle = card.querySelector('.menu-category-toggle');
+    const panel = card.querySelector('.menu-category-panel');
+    if (!toggle || !panel) return;
+    
+    card.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    
+    // If already at auto height from a prior expand, snap to px first
+    // so the collapse transition can animate from the current height
+    if (panel.style.maxHeight === 'none' || !panel.style.maxHeight) {
+      panel.style.maxHeight = `${panel.scrollHeight}px`;
+      // Force reflow before collapsing
+      void panel.offsetHeight;
+    }
+    setPanelHeight(panel, false);
+  }
+  
+  function expandCard(card) {
+    const toggle = card.querySelector('.menu-category-toggle');
+    const panel = card.querySelector('.menu-category-panel');
+    if (!toggle || !panel) return;
+    
+    card.classList.add('is-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    setPanelHeight(panel, true);
+    
+    const onEnd = (event) => {
+      if (event.target !== panel || event.propertyName !== 'max-height') return;
+      panel.removeEventListener('transitionend', onEnd);
+      // Allow content reflow (e.g. font load) without clipping while open
+      if (card.classList.contains('is-open')) {
+        panel.style.maxHeight = 'none';
+      }
+    };
+    panel.addEventListener('transitionend', onEnd);
+    
+    // Align the opened card near the top of the viewport
+    const scrollBehavior = prefersReducedMotion() ? 'auto' : 'smooth';
+    requestAnimationFrame(() => {
+      card.scrollIntoView({ behavior: scrollBehavior, block: 'start' });
+    });
+  }
+  
+  cards.forEach(card => {
+    const toggle = card.querySelector('.menu-category-toggle');
+    const panel = card.querySelector('.menu-category-panel');
+    if (!toggle || !panel) return;
+    
+    // All cards start collapsed
+    panel.style.maxHeight = '0px';
+    
+    toggle.addEventListener('click', () => {
+      const isOpen = card.classList.contains('is-open');
+      
+      // Close whichever card is currently open
+      cards.forEach(other => {
+        if (other !== card && other.classList.contains('is-open')) {
+          collapseCard(other);
+        }
+      });
+      
+      if (isOpen) {
+        collapseCard(card);
+      } else {
+        expandCard(card);
+      }
+    });
+  });
+  
+  // Keep open panel height in sync if viewport resizes
+  window.addEventListener('resize', () => {
+    cards.forEach(card => {
+      if (!card.classList.contains('is-open')) return;
+      const panel = card.querySelector('.menu-category-panel');
+      if (!panel || panel.style.maxHeight === 'none') return;
+      setPanelHeight(panel, true);
+    });
+  }, { passive: true });
 }
 
 // ============================================================
